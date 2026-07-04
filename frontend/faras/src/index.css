@@ -3635,3 +3635,171 @@ button{
 
 }
 
+
+
+/* ==========================
+      CART PAGE
+========================== */
+
+.cart-breadcrumb{
+    background:#f8f9fa;
+}
+
+.cart-breadcrumb a{
+    text-decoration:none;
+    color:#0d6efd;
+}
+
+.cart-box{
+    background:#fff;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+.cart-item{
+    padding:20px 0;
+    border-bottom:1px solid #ececec;
+}
+
+.cart-item img{
+    border-radius:10px;
+}
+
+.quantity-box{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.quantity-box button{
+    width:35px;
+    height:35px;
+    border:none;
+    background:#0d6efd;
+    color:#fff;
+    border-radius:6px;
+}
+
+.quantity-box input{
+    width:55px;
+    text-align:center;
+    margin:0 10px;
+    border:1px solid #ddd;
+    border-radius:6px;
+}
+
+.remove-item{
+    color:red;
+    font-size:22px;
+    cursor:pointer;
+}
+
+.cart-summary{
+    background:#fff;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    position:sticky;
+    top:100px;
+}
+
+/*===============================
+        Coupon
+================================*/
+
+.input-group input{
+    height:50px;
+}
+
+/*===============================
+      Shipping Progress
+================================*/
+
+.free-shipping-box{
+
+    background:#eef8ff;
+
+    padding:15px;
+
+    border-radius:10px;
+
+    margin-bottom:20px;
+
+}
+
+.progress{
+
+    height:10px;
+
+    border-radius:20px;
+
+}
+
+.progress-bar{
+
+    background:#198754;
+
+}
+
+/*===============================
+      Saving Box
+================================*/
+
+.saving-box{
+
+    background:#e9fff2;
+
+    padding:15px;
+
+    border-radius:10px;
+
+    text-align:center;
+
+    font-weight:600;
+
+}
+
+/*===============================
+    Secure Checkout
+================================*/
+
+.secure-checkout{
+
+    margin-top:25px;
+
+}
+
+.secure-checkout ul{
+
+    padding-left:0;
+
+    list-style:none;
+
+}
+
+.secure-checkout li{
+
+    margin-bottom:12px;
+
+}
+
+.secure-checkout i{
+
+    color:green;
+
+    margin-right:10px;
+
+}
+
+/*===============================
+      Payment Icons
+================================*/
+
+.payment-icons img{
+
+    max-width:230px;
+
+    opacity:.9;
+
+}

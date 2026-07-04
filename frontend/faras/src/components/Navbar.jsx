@@ -1,7 +1,10 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import { Link } from 'react-router-dom'
+import { CartContext } from '../context/CartContext'
 
 const Navbar = () => {
+    const { cartItems } = useContext(CartContext);
+
     return (
         <>
             <nav className="navbar navbar-expand-lg fixed-top custom-navbar">
@@ -55,9 +58,10 @@ const Navbar = () => {
                                 <i className="bi bi-heart"></i>
                             </button>
 
-                            <button className="icon-btn">
+                            <Link to='/cartPage' className="icon-btn">
                                 <i className="bi bi-cart3"></i>
-                            </button>
+                                    ({cartItems.length})
+                            </Link>
 
                             <button className="btn login-btn">
                                 Login

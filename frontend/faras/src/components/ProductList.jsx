@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import api from "./api/api";
+import { CartContext } from '../context/CartContext';
 
 const ProductList = () => {
 
     const [product, setProduct] = useState([]);
+    const {addToCart} = useContext(CartContext)
 
     useEffect(
         () => {
@@ -93,7 +95,7 @@ const ProductList = () => {
                                     In Stock
                                 </div> */}
 
-                                            <button className="btn add-cart">
+                                            <button onClick={()=> addToCart(product) } className="btn add-cart">
                                                 <i className="bi bi-cart-plus"></i>
                                                 Add To Cart
                                             </button>
