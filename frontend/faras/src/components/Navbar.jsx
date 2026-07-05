@@ -60,7 +60,7 @@ const Navbar = () => {
 
                             <Link to='/cartPage' className="icon-btn">
                                 <i className="bi bi-cart3"></i>
-                                    ({cartItems.length})
+                                    ({cartItems? cartItems.length : 0 })
                             </Link>
 
                             <button className="btn login-btn">

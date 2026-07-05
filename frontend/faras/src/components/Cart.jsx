@@ -2,19 +2,21 @@ import React, { useContext } from 'react'
 import { CartContext } from '../context/CartContext'
 
 const Cart = () => {
-  const { cartItems, RemoveFromCart, addToCart } = useContext(CartContext);
+  const { cartItems, RemoveFromCart, addToCart,UpdateCart } = useContext(CartContext);
 
+
+  const cartLength = cartItems?.length || 0;
 
   return (
     <>
       {/* <!-- Cart --> */}
 
-      {cartItems.length === 0 ? (
+      {cartLength === 0 ? (
         <div className="container text-center py-5">
           <h2>Your Cart is Empty</h2>
         </div>
       ) : (
-        < section >
+        <section>
         {/* Cart Items */ }
         
         <div className="cart-box">
@@ -26,7 +28,7 @@ const Cart = () => {
 
                 <div className="col-md-2">
                   <img
-                    src={item.image}
+                    src={item.product_image}
                     className="img-fluid"
                     alt={item.product_name}
                   />
@@ -37,12 +39,12 @@ const Cart = () => {
                 </div>
 
                 <div className="col-md-2">
-                  ₹{item.price}
+                  ₹{item.product_price}
                 </div>
 
                 <div className="col-md-3">
                   <div className="quantity-box">
-                    <button onClick={() => RemoveFromCart(item.id)}>
+                    <button onClick={() => UpdateCart(item.id, item.quantity - 1)}>
                       -
                     </button>
 
@@ -52,20 +54,20 @@ const Cart = () => {
                       readOnly
                     />
 
-                    <button onClick={() => addToCart(item)}>
+                    <button onClick={() => UpdateCart(item.id, item.quantity + 1)}>
                       +
                     </button>
                   </div>
                 </div>
 
                 <div className="col-md-1">
-                  ₹{item.price * item.quantity}
+                  ₹{item.product_price * item.quantity}
                 </div>
 
                 <div className="col-md-1">
                   <button
                     className="btn btn-link"
-                    onClick={() => RemoveFromCart(item.id)}
+                    onClick={() => RemoveFromCart(item.product)}
                   >
                     <i className="bi bi-trash-fill"></i>
                   </button>

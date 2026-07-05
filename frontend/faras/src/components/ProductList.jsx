@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import api from "./api/api";
+import { Link } from 'react-router-dom';
 import { CartContext } from '../context/CartContext';
 
 const ProductList = () => {
@@ -78,27 +79,29 @@ const ProductList = () => {
                                     Bosch
                                 </small> */}
 
-                                            <h5>{product.product_name} </h5>
+                                            <Link to={`/products/${product.id}`} key={product.id}>
+                                                <h5>{product.product_name} </h5>
 
-                                            <div className="rating">
-                                                ★★★★★
-                                                <span>(124)</span>
-                                            </div>
+                                                <div className="rating">
+                                                    ★★★★★
+                                                    <span>(124)</span>
+                                                </div>
 
-                                            <div className="price">
-                                                <h4>{product.price}</h4>
-                                                {/* <del>$229</del> */}
-                                            </div>
+                                                <div className="price">
+                                                    <h4>{product.price}</h4>
+                                                    {/* <del>$229</del> */}
+                                                </div>
 
-                                            {/* <div className="stock in-stock">
-                                    <i className="bi bi-check-circle-fill"></i>
-                                    In Stock
-                                </div> */}
+                                                {/* <div className="stock in-stock">
+                                        <i className="bi bi-check-circle-fill"></i>
+                                        In Stock
+                                    </div> */}
 
-                                            <button onClick={()=> addToCart(product) } className="btn add-cart">
-                                                <i className="bi bi-cart-plus"></i>
-                                                Add To Cart
-                                            </button>
+                                                <button onClick={()=> addToCart(product) } className="btn add-cart">
+                                                    <i className="bi bi-cart-plus"></i>
+                                                    Add To Cart
+                                                </button>
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>

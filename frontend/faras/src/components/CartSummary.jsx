@@ -4,12 +4,7 @@ import { CartContext } from '../context/CartContext'
 
 const CartSummary = (props) => {
 
-    const { cartItems, RemoveFromCart, addToCart } = useContext(CartContext);
-
-    const total = cartItems.reduce(
-        (total, item) => total + (item.price * item.quantity),
-        0
-    );
+    const { total, cartItems, RemoveFromCart, addToCart , UpdateCart } = useContext(CartContext);
 
     return (
         <>

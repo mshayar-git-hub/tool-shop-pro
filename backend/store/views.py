@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework import generics, status
-from .serializers import CartSerializer, CategorySerializer, ProductSerializer
+from .serializers import CartItemSerializer, CartSerializer, CategorySerializer, ProductSerializer
 from .models import Cart, CartItem, Category, Product
 
 # Create your views here.
@@ -21,12 +21,12 @@ class Single_Product_generic(generics.RetrieveAPIView):
     except Product.DoesNotExist:
         Response ({'error':'not exist'}, status=404 )
 
-class get_cart_generic(generics.ListAPIView):
+class get_cart_generic(generics.RetrieveAPIView):
     serializer_class = CartSerializer
 
-    def get_queryset(self):
+    def get_object(self):
         cart, created = Cart.objects.get_or_create(user=None)
-        return Cart.objects.filter(id=cart.id)
+        return cart
 
 class add_to_cart(generics.UpdateAPIView):
     serializer_class =  CartSerializer
@@ -70,6 +70,29 @@ class add_to_cart(generics.UpdateAPIView):
             status=status.HTTP_200_OK
         )
     
+class UpdateInCart(generics.GenericAPIView):
+    serializer_class= CartSerializer
+
+    def post(self,request):
+        item_id = request.data.get('item_id')
+        quantity = request.data.get('quantity')
+
+        if not item_id or quantity is None:
+            return Response({'message':'Item ID or Quantity Not found'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            item = CartItem.objects.get(id=item_id)
+            if int(quantity) < 1:
+                item.delete()
+                return Response({"message":"item deleted"},status=status.HTTP_200_OK)
+            
+            item.quantity=quantity
+            item.save()
+            serializer = CartItemSerializer(item)
+            return Response({"message":"cart updated successfully" , "cart":serializer.data})
+        except CartItem.DoesNotExist:
+            return Response ({"message":"cart item not found"},status=status.HTTP_400_BAD_REQUEST)
+    
 
 class RemoveFromCart(generics.GenericAPIView):
     serializer_class = CartSerializer
@@ -111,18 +134,14 @@ class RemoveFromCart(generics.GenericAPIView):
                 status=status.HTTP_404_NOT_FOUND
             )
 
-        if cart_item.quantity > 1:
-            cart_item.quantity -= 1
-            cart_item.save()
-        else:
-            cart_item.delete()
+        cart_item.delete()
 
         serializer = CartSerializer(cart)
 
         return Response(
             {
-                "message": "Product removed from cart",
-                "cart": serializer.data
+                "message": "Item removed successfully",
+                "cart": serializer.data,
             },
-            status=status.HTTP_200_OK
+            status=status.HTTP_200_OK,
         )

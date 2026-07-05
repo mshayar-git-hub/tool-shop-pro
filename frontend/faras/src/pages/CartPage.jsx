@@ -7,6 +7,8 @@ const CartPage = () => {
     return (
         <>
             <Navbar />
+            <br/>
+            <br/>
             <section className="cart-page py-5">
                 <div className="container">
                     <div className="row g-4">
