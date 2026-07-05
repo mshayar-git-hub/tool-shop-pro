@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { CartContext } from '../context/CartContext'
+import { Link } from 'react-router-dom'
 
 
 const CartSummary = (props) => {
@@ -82,7 +83,7 @@ const CartSummary = (props) => {
                             </ul>
                         </div>
 
-                        <a href="products.html" className="btn btn-outline-dark w-100 mt-3">Continue Shopping</a>
+                        <Link to='/' className="btn btn-outline-dark w-100 mt-3">Continue Shopping</Link>
 
                         <div className="payment-icons text-center mt-4">
                             <img src="images/payment.png" className="img-fluid" />

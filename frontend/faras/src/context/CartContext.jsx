@@ -62,11 +62,6 @@ const CartProvider = ({children}) => {
 
     //update from cart
     const UpdateCart = async (Id, quantity) => {
-        if (quantity < 1) {
-            await api.post("cart/update_cart/", {
-                item_id: Id,
-                quantity: 0,
-            })};
         try {
             await api.post("cart/update_cart/", {
                 item_id: Id,
