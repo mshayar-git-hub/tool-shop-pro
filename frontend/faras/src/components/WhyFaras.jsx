@@ -3,7 +3,7 @@ import React from 'react'
 const WhyFaras = () => {
     return (
         <>
-            <section className="advantage-section">
+            <section className="advantage-section" id='about'>
 
                 <div className="container">
 

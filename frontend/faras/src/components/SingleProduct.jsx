@@ -1,12 +1,17 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect , useContext} from 'react'
 import { useParams } from 'react-router-dom';
 import api from './api/api';
+import { CartContext } from '../context/CartContext';
+
 
 
 const SingleProduct = () => {
 
     const { id } = useParams();
     const [product, setProduct] = useState({});
+    const {addToCart,UpdateCart} = useContext(CartContext)
+    const [quantity,setQuantity] = useState(1)
+    
 
     useEffect(
         () => {
@@ -19,7 +24,6 @@ const SingleProduct = () => {
                 })
         }, [id]
     );
-
 
     return (
         <>
@@ -108,18 +112,30 @@ const SingleProduct = () => {
                                 {/* <!-- Quantity --> */}
                                 <div className="quantity-wrapper">
                                     <label> Quantity </label>
-                                    <div className="quantity-box">
-                                        <button className="qty-minus">- </button>
-                                        <input
-                                            type="text"
-                                            value="1"
-                                            readOnly />
-                                        <button className="qty-plus"> +</button>
+                                    <div className="col-md-3">
+                                        <div className="quantity-box">
+                                            <button onClick={() => setQuantity(quantity > 1 ? quantity - 1 : 1)}>
+                                                -
+                                            </button>
+
+                                            <input
+                                                type="text"
+                                                value={quantity}
+                                                readOnly
+                                            />
+
+                                            <button onClick={() => setQuantity(quantity + 1)}>
+                                                +
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                                 {/* <!-- Buttons --> */}
                                 <div className="product-buttons">
-                                    <a href="#"  className="btn btn-shop btn-lg"><i className="bi bi-cart-plus"></i>Add To Cart</a>
+                                    <button onClick={() => addToCart(product)} className="btn add-cart">
+                                        <i className="bi bi-cart-plus"></i>
+                                        Add To Cart
+                                    </button>
                                     <a href="#" className="btn btn-warning btn-lg"> Buy Now</a>
                                 </div>
                                 <div className="secondary-buttons">

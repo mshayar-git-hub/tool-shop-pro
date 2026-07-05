@@ -40,11 +40,19 @@ const Navbar = () => {
                             </li>
 
                             <li className="nav-item">
-                                <a className="nav-link" href="#">About</a>
+                                <button className="nav-link" href="#" onClick={() => {
+                                    document.getElementById("about")?.scrollIntoView({
+                                        behavior: "smooth",
+                                    });
+                                }}>About</button>
                             </li>
 
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Contact</a>
+                                <button className="nav-link" href="#" onClick={() => {
+                                    document.getElementById("contact")?.scrollIntoView({
+                                        behavior: "smooth",
+                                    });
+                                }}>Contact</button>
                             </li>
                         </ul>
 

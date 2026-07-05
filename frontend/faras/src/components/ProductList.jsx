@@ -91,6 +91,7 @@ const ProductList = () => {
                                                     <h4>{product.price}</h4>
                                                     {/* <del>$229</del> */}
                                                 </div>
+                                            </Link>
 
                                                 {/* <div className="stock in-stock">
                                         <i className="bi bi-check-circle-fill"></i>
@@ -101,7 +102,6 @@ const ProductList = () => {
                                                     <i className="bi bi-cart-plus"></i>
                                                     Add To Cart
                                                 </button>
-                                            </Link>
                                         </div>
                                     </div>
                                 </div>

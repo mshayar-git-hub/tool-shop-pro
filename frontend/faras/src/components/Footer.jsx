@@ -59,7 +59,7 @@ const Footer = () => {
 
                         {/* <!-- Contact --> */}
 
-                        <div className="col-lg-3">
+                        <div className="col-lg-3" id='contact'>
                             <h5>Contact </h5>
 
                             <ul className="contact-info">

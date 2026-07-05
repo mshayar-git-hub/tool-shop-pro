@@ -1,6 +1,8 @@
 import React from 'react'
 import SingleProduct from '../components/SingleProduct'
 import Navbar from '../components/Navbar'
+import WhyFaras from '../components/WhyFaras'
+import Footer from '../components/Footer'
 
 const SingleProductPage = () => {
   return (
@@ -9,6 +11,8 @@ const SingleProductPage = () => {
         <br/>
         <br/>
         <SingleProduct/>
+        <WhyFaras/>
+        <Footer/>
     </>
   )
 }
