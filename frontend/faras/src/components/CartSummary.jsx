@@ -53,9 +53,9 @@ const CartSummary = (props) => {
                             on this order.
                         </div>
 
-                        <button className="btn btn-warning w-100 mt-4">
+                        <Link to='/cartPage/checkout' className="btn btn-warning w-100 mt-4">
                             Proceed To Checkout
-                        </button>
+                        </Link>
 
                         <div className="secure-checkout mt-4">
                             <h6>Why Shop With Us?</h6>

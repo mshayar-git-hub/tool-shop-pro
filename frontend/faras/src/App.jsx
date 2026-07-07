@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import ProductPage from './pages/ProductPage';
 import CartPage from './pages/CartPage';
 import SingleProductPage from './pages/SingleProductPage';
+import CheckoutPage from './pages/CheckoutPage';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -27,6 +28,10 @@ function App() {
             <Route
             path='/products/:id'
             element={<SingleProductPage/>} />
+
+            <Route
+            path='/cartPage/checkout'
+            element={<CheckoutPage/>} />
 
         </Routes>
       </Router>

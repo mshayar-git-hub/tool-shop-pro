@@ -2,7 +2,8 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework import generics, status
 from .serializers import CartItemSerializer, CartSerializer, CategorySerializer, ProductSerializer
-from .models import Cart, CartItem, Category, Product
+from .models import Cart, CartItem, Category, Order, OrderItem, Product
+from rest_framework.views import APIView
 
 # Create your views here.
 class Category_generic(generics.ListAPIView):
@@ -145,3 +146,43 @@ class RemoveFromCart(generics.GenericAPIView):
             },
             status=status.HTTP_200_OK,
         )
+    
+class Create_order(APIView):
+    def post(self,request):
+        try:
+            data = request.data 
+
+            name = data.get('name')
+            address = data.get('address')
+            phone = data.get('phone')
+            payment_method = data.get('payment_method')
+
+            cart = Cart.objects.first()
+
+            if not cart or not cart.items.exists():
+                return Response ({'message':"items not found"}, status = status.HTTP_400_BAD_REQUEST)
+            
+            total = sum(float(item.product.price) * item.quantity for item in cart.items.all())
+
+            # create order
+            order = Order.objects.create(
+                user = None,
+                total_amount = total
+            )
+
+            # create order item
+            for item in cart.items.all():
+                orderItem = OrderItem.objects.create(
+                    order = order,
+                    product = item.product,
+                    quantity = item.quantity,
+                    price = item.product.price,
+                )
+
+            # clear Cart
+            cart.items.all().delete()
+            return Response({'message':"cart cleared",'order id' : order.id},status=status.HTTP_201_CREATED)
+
+        except Exception as e:
+            return Response({'error':str(e)},status=status.HTTP_400_BAD_REQUEST)
+        

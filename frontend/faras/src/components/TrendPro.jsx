@@ -1,8 +1,10 @@
-import React, { useState ,useEffect } from 'react'
+import React, { useState ,useEffect , useContext} from 'react'
 import api from './api/api'
+import { CartContext } from '../context/CartContext';
 
 const TrendPro = () => {
     const [trePro , setTrePro ]=useState([])
+    const {addToCart} = useContext(CartContext)
 
     useEffect(() => {
         api.get("products/")
@@ -90,7 +92,7 @@ const TrendPro = () => {
                             </del> */}
                         </div>
 
-                        <button className="btn add-cart">
+                        <button className="btn add-cart" onClick={()=> addToCart(product)}>
                             <i className="bi bi-cart-plus"></i> Add To Cart
                         </button>
                     </div>
