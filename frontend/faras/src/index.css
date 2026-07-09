@@ -3803,3 +3803,360 @@ button{
     opacity:.9;
 
 }
+
+
+/* ===========================
+   CHECKOUT PAGE
+=========================== */
+
+body{
+    background:#f7f8fc;
+}
+
+/* Cards */
+
+.card{
+    border:none;
+    border-radius:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,.06);
+}
+
+/* Inputs */
+
+.form-control,
+.form-select{
+    border-radius:12px;
+    padding:12px 15px;
+    border:1px solid #d9d9d9;
+    transition:.3s;
+}
+
+.form-control:focus,
+.form-select:focus{
+    border-color:#0d6efd;
+    box-shadow:0 0 0 .15rem rgba(13,110,253,.15);
+}
+
+/* Labels */
+
+.form-label{
+    font-weight:600;
+    margin-bottom:8px;
+}
+
+/* Delivery & Payment Cards */
+
+.border.rounded-4{
+    transition:.3s;
+    cursor:pointer;
+    border:2px solid #ececec !important;
+}
+
+.border.rounded-4:hover{
+    transform:translateY(-4px);
+    border-color:#0d6efd !important;
+    box-shadow:0 10px 20px rgba(13,110,253,.15);
+}
+
+/* Radio Buttons */
+
+.form-check-input{
+    transform:scale(1.2);
+}
+
+.form-check-input:checked{
+    background-color:#0d6efd;
+    border-color:#0d6efd;
+}
+
+/* Product Images */
+
+.object-fit-cover{
+    object-fit:cover;
+}
+
+/* Coupon Button */
+
+.input-group .btn{
+    border-radius:0 12px 12px 0;
+}
+
+/* Place Order Button */
+
+.btn-primary{
+    border:none;
+    border-radius:14px;
+    background:linear-gradient(90deg,#0A66FF,#FF7A00);
+    transition:.35s;
+}
+
+.btn-primary:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 25px rgba(10,102,255,.3);
+}
+
+/* Sticky Summary */
+
+.sticky-top{
+    top:100px;
+}
+
+/* Secure Box */
+
+.bg-light{
+    background:#f5f7fb !important;
+}
+
+/* Responsive */
+
+@media(max-width:991px){
+
+    .sticky-top{
+        position:relative !important;
+        top:0;
+    }
+
+}
+
+
+.signup-section{
+    min-height: 100vh;
+}
+
+/*=====================================================
+                SIGNUP PAGE
+======================================================*/
+
+.signup-card{
+
+    background:var(--white);
+
+    border-radius:28px;
+
+    box-shadow:var(--shadow);
+
+    overflow:hidden;
+
+    transition:var(--transition);
+
+}
+
+.signup-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:var(--shadow-hover);
+
+}
+
+
+/*=====================================================
+                SIGNUP LOGO
+======================================================*/
+
+.signup-logo{
+
+    width:90px;
+
+    margin:auto;
+
+    margin-bottom:20px;
+
+}
+
+
+/*=====================================================
+                SIGNUP HEADING
+======================================================*/
+
+.signup-title{
+
+    font-size:36px;
+
+    font-weight:800;
+
+    color:var(--dark);
+
+}
+
+.signup-subtitle{
+
+    color:var(--gray);
+
+    margin-top:10px;
+
+}
+
+
+/*=====================================================
+                SIGNUP FORM
+======================================================*/
+
+.signup-card .input-group{
+
+    margin-bottom:20px;
+
+}
+
+.signup-card .input-group-text{
+
+    background:#fff;
+
+    border:1px solid #d9d9d9;
+
+    border-right:none;
+
+    color:var(--primary);
+
+    border-radius:12px 0 0 12px;
+
+}
+
+.signup-card .form-control{
+
+    border-left:none;
+
+    height:55px;
+
+}
+
+.signup-card .form-control:focus{
+
+    box-shadow:none;
+
+}
+
+.signup-card .input-group:focus-within{
+
+    box-shadow:0 0 0 .18rem rgba(13,110,253,.15);
+
+    border-radius:12px;
+
+}
+
+
+/*=====================================================
+            PASSWORD BUTTON
+======================================================*/
+
+.password-toggle{
+
+    border:1px solid #d9d9d9;
+
+    border-left:none;
+
+    background:#fff;
+
+    color:var(--gray);
+
+    border-radius:0 12px 12px 0;
+
+    transition:.3s;
+
+}
+
+.password-toggle:hover{
+
+    color:var(--primary);
+
+}
+
+
+
+
+/*=====================================================
+                TERMS
+======================================================*/
+
+.form-check-label{
+
+    color:var(--gray);
+
+}
+
+.form-check-label a{
+
+    color:var(--primary);
+
+    font-weight:600;
+
+}
+
+
+/*=====================================================
+            CREATE ACCOUNT
+======================================================*/
+
+.signup-btn{
+
+    width:100%;
+
+    padding:15px;
+
+    border-radius:14px;
+
+    background:linear-gradient(
+        90deg,
+        var(--primary),
+        var(--secondary)
+    );
+
+    color:#fff;
+
+    font-weight:600;
+
+    transition:.35s;
+
+}
+
+.signup-btn:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 12px 25px rgba(13,110,253,.25);
+
+    color:#fff;
+
+}
+
+
+/*=====================================================
+            SOCIAL BUTTONS
+======================================================*/
+
+.social-btn{
+
+    height:52px;
+
+    border-radius:14px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.social-btn:hover{
+
+    transform:translateY(-4px);
+
+}
+
+/*=====================================================
+                LOGIN LINK
+======================================================*/
+
+.login-link{
+
+    color:var(--primary);
+
+    font-weight:600;
+
+}
+
+.login-link:hover{
+
+    color:var(--secondary);
+
+}
+

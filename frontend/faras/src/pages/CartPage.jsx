@@ -2,6 +2,7 @@ import React from 'react'
 import Navbar from '../components/Navbar'
 import Cart from '../components/Cart'
 import CartSummary from '../components/CartSummary'
+import Footer from '../components/Footer'
 
 const CartPage = () => {
     return (
@@ -24,6 +25,7 @@ const CartPage = () => {
                     </div>
                 </div>
             </section>
+            <Footer/>
         </>
     )
 }

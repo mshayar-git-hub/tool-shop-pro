@@ -1,9 +1,13 @@
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework import generics, status
-from .serializers import CartItemSerializer, CartSerializer, CategorySerializer, ProductSerializer
+from .serializers import CartItemSerializer, CartSerializer, CategorySerializer, OrderItemSerializer, ProductSerializer
 from .models import Cart, CartItem, Category, Order, OrderItem, Product
 from rest_framework.views import APIView
+from rest_framework.decorators import permission_classes
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from django.contrib.auth.models import User
+from .serializers import RegisterSerializer, UserSerializer 
 
 # Create your views here.
 class Category_generic(generics.ListAPIView):
@@ -23,13 +27,15 @@ class Single_Product_generic(generics.RetrieveAPIView):
         Response ({'error':'not exist'}, status=404 )
 
 class get_cart_generic(generics.RetrieveAPIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = CartSerializer
 
     def get_object(self):
-        cart, created = Cart.objects.get_or_create(user=None)
+        cart, created = Cart.objects.get_or_create(user=self.request.user)
         return cart
 
 class add_to_cart(generics.UpdateAPIView):
+    permission_classes = [IsAuthenticated]
     serializer_class =  CartSerializer
 
     def post(self, request):
@@ -50,7 +56,7 @@ class add_to_cart(generics.UpdateAPIView):
                 status=status.HTTP_404_NOT_FOUND
             )
 
-        cart, created = Cart.objects.get_or_create(user=None)
+        cart, created = Cart.objects.get_or_create(user=request.user)
 
         cart_item, created = CartItem.objects.get_or_create(
             cart=cart,
@@ -72,6 +78,7 @@ class add_to_cart(generics.UpdateAPIView):
         )
     
 class UpdateInCart(generics.GenericAPIView):
+    permission_classes = [IsAuthenticated]
     serializer_class= CartSerializer
 
     def post(self,request):
@@ -96,6 +103,7 @@ class UpdateInCart(generics.GenericAPIView):
     
 
 class RemoveFromCart(generics.GenericAPIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = CartSerializer
 
     def post(self, request):
@@ -117,7 +125,7 @@ class RemoveFromCart(generics.GenericAPIView):
             )
 
         try:
-            cart = Cart.objects.get(user=None)
+            cart = Cart.objects.get(user=request.user)
         except Cart.DoesNotExist:
             return Response(
                 {"error": "Cart not found"},
@@ -148,6 +156,7 @@ class RemoveFromCart(generics.GenericAPIView):
         )
     
 class Create_order(APIView):
+    permission_classes  = [IsAuthenticated]
     def post(self,request):
         try:
             data = request.data 
@@ -157,8 +166,7 @@ class Create_order(APIView):
             phone = data.get('phone')
             payment_method = data.get('payment_method')
 
-            cart = Cart.objects.first()
-
+            cart ,created = Cart.objects.get_or_create(user = request.user)
             if not cart or not cart.items.exists():
                 return Response ({'message':"items not found"}, status = status.HTTP_400_BAD_REQUEST)
             
@@ -166,7 +174,7 @@ class Create_order(APIView):
 
             # create order
             order = Order.objects.create(
-                user = None,
+                user = request.user,
                 total_amount = total
             )
 
@@ -185,4 +193,23 @@ class Create_order(APIView):
 
         except Exception as e:
             return Response({'error':str(e)},status=status.HTTP_400_BAD_REQUEST)
+        
+class Show_order(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self,request):
+        order_item = OrderItem.objects.all()
+        serializer = OrderItemSerializer(order_item,many=True)
+        return Response(serializer.data ,status=status.HTTP_200_OK)
+    
+
+class register_view(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self,request):
+        serializer = RegisterSerializer(data = request.data)
+        if serializer.is_valid():
+            user = serializer.save()
+            return Response({"message":"user created successfully" , "user" : UserSerializer(user).data},status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
