@@ -6,3 +6,6 @@ to solve: if he logged in again, cart shows 0 item than after adding any product
 
 2.
 Add quantity from singleProductPage to add to cart
+
+3.
+Loading key or symbol everywhere where needed.

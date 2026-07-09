@@ -2,3 +2,5 @@
 2. categories page
 3. Brands page
 4. Dashboard
+5.checkout page filled with details of loggedIn user
+6.Security
