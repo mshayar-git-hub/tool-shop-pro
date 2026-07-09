@@ -4,12 +4,14 @@ import { CartContext } from '../context/CartContext'
 import api from './api/api'
 
 
-const Checkout = () => {
+const Checkout = (props) => {
 
     const { clearCart } = useContext(CartContext)
     const navigate = useNavigate();
     const [message, setMessage] = useState("")
     const [loading, setLoading] = useState(false)
+
+    const { total, cartItems } = useContext(CartContext);
 
     const [form, setForm] = useState({
         name: "",
@@ -190,20 +192,22 @@ const Checkout = () => {
                                         <h4 className="fw-bold mb-4"> Order Summary</h4>
 
                                         {/* <!-- Product 1 --> */}
+                                        {cartItems.map((item) => (
 
-                                        <div className="d-flex align-items-center mb-3">
+                                        <div className="d-flex align-items-center mb-3" key={item.id}>
 
-                                            <img src="images/product1.jpg" width="70" height="70" className="rounded-3 object-fit-cover"
-                                                alt="" />
+                                            <img src={item.product_image} width="70" height="70" className="rounded-3 object-fit-cover"
+                                                alt={item.product_name} />
 
                                             <div className="ms-3 flex-grow-1">
-                                                <h6 className="mb-1">Electric Drill</h6>
-                                                <small className="text-muted">Qty : 2</small>
+                                                <h6 className="mb-1">{item.product_name} </h6>
+                                                <small className="text-muted">Qty : {item.quantity}</small>
                                             </div>
-                                            <strong>$80</strong>
+                                            <strong>{item.product_price}</strong>
                                         </div>
+                                        ))}
                                         <hr />
-
+                                        
                                         {/* <!-- Coupon --> */}
 
                                         <label className="form-label fw-semibold">
@@ -219,7 +223,7 @@ const Checkout = () => {
 
                                         <div className="d-flex justify-content-between mb-2">
                                             <span>Subtotal</span>
-                                            <span>$105</span>
+                                            <span>{total}</span>
                                         </div>
 
                                         <div className="d-flex justify-content-between mb-2">
@@ -229,12 +233,12 @@ const Checkout = () => {
 
                                         <div className="d-flex justify-content-between mb-2 text-success">
                                             <span>Discount</span>
-                                            <span>- $10</span>
+                                            <span>- $0</span>
                                         </div>
 
                                         <div className="d-flex justify-content-between mb-2">
                                             <span>Tax</span>
-                                            <span>$5</span>
+                                            <span>{props.tax}</span>
                                         </div>
 
                                         <hr />
@@ -242,7 +246,7 @@ const Checkout = () => {
                                         <div className="d-flex justify-content-between fw-bold fs-5">
                                             <span>Total</span>
                                             <span className="text-primary">
-                                                $100
+                                                {total + props.tax}
                                             </span>
                                         </div>
 

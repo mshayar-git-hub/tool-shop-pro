@@ -23,11 +23,15 @@ const CartProvider = ({children}) => {
         }
     };
     // fetch cart from backend
-    useEffect(
-        () => {
+    useEffect(() => {
+        const token = localStorage.getItem("access_token");
+
+        if (token) {
             fetchCart();
-        }, []
-    );
+        } else {
+            setLoading(false);
+        }
+    }, []);
 
 
     // add product to cart
