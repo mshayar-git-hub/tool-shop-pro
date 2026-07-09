@@ -1,0 +1,8 @@
+1.
+if user A logged in, add propduct in cart and logout. 
+to solve: now after logout cart should show 0 items
+to solve: if he logged in again, cart shows 0 item than after adding any product ,
+          it shows how many items already cart contains.
+
+2.
+Add quantity from singleProductPage to add to cart

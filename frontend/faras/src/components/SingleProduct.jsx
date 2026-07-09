@@ -1,5 +1,5 @@
 import React, { useState, useEffect , useContext} from 'react'
-import { useParams } from 'react-router-dom';
+import { useParams,useNavigate } from 'react-router-dom';
 import api from './api/api';
 import { CartContext } from '../context/CartContext';
 
@@ -11,6 +11,18 @@ const SingleProduct = () => {
     const [product, setProduct] = useState({});
     const {addToCart,UpdateCart} = useContext(CartContext)
     const [quantity,setQuantity] = useState(1)
+    const navigate = useNavigate();
+
+
+    const handleAddToCart = () =>{
+        if(!localStorage.getItem("access_token")){
+            navigate('/login');
+            return;
+        }else{
+            addToCart(product);
+            return;
+        }
+    }
     
 
     useEffect(
@@ -132,7 +144,7 @@ const SingleProduct = () => {
                                 </div>
                                 {/* <!-- Buttons --> */}
                                 <div className="product-buttons">
-                                    <button onClick={() => addToCart(product)} className="btn add-cart">
+                                    <button onClick={handleAddToCart} className="btn add-cart">
                                         <i className="bi bi-cart-plus"></i>
                                         Add To Cart
                                     </button>

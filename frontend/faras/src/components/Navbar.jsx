@@ -1,9 +1,20 @@
-import React,{useContext} from 'react'
-import { Link } from 'react-router-dom'
+import React,{useContext, useState} from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { CartContext } from '../context/CartContext'
+import { removeToken } from '../utils/Auth'
 
 const Navbar = () => {
     const { cartItems } = useContext(CartContext);
+    const navigate = useNavigate()
+    
+    const [isLoggedIn, setIsLoggedIn] = useState(
+        !!localStorage.getItem("access_token")
+    )
+    const handleLogout=()=>{
+        removeToken();
+        setIsLoggedIn(false);
+        navigate('/login');
+    }
 
     return (
         <>
@@ -71,9 +82,23 @@ const Navbar = () => {
                                     ({cartItems? cartItems.length : 0 })
                             </Link>
 
-                            <button className="btn login-btn">
-                                Login
-                            </button>
+                            {!isLoggedIn ? (
+                                <>
+                                    <Link className="btn btn-login" to="/login">
+                                        Login
+                                    </Link>
+
+                                    <Link className="btn btn-signup" to="/register">
+                                        Sign Up
+                                    </Link>
+                                </>
+                            ) : (
+                                <>
+                                    <button className="btn btn-logout" onClick={handleLogout} >
+                                        Logout
+                                    </button>
+                                </>
+                            )}
                         </div>
                     </div>
                 </div>

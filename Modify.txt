@@ -1,0 +1,4 @@
+1. Login as customer/admin
+2. categories page
+3. Brands page
+4. Dashboard

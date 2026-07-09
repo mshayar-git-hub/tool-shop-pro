@@ -1,6 +1,7 @@
 import React, { useState ,useEffect , useContext} from 'react'
 import api from './api/api'
 import { CartContext } from '../context/CartContext';
+import { Link } from 'react-router-dom';
 
 const TrendPro = () => {
     const [trePro , setTrePro ]=useState([])
@@ -42,10 +43,10 @@ const TrendPro = () => {
                 </p>
             </div>
 
-            <a href="#" className="btn btn-shop">
+            <Link to='/products' className="btn btn-shop">
                 View All
                 <i className="bi bi-arrow-right"></i>
-            </a>
+            </Link>
         </div>
 
 
@@ -70,7 +71,7 @@ const TrendPro = () => {
                         {/* <small>
                             Bosch
                         </small> */}
-
+                        <Link to={`/products/${product.id}`} key={product.id}>
                         <h5>{product.product_name} </h5>
 
                         {/* <div className="rating">
@@ -91,7 +92,7 @@ const TrendPro = () => {
                                 $239
                             </del> */}
                         </div>
-
+                        </Link>
                         <button className="btn add-cart" onClick={()=> addToCart(product)}>
                             <i className="bi bi-cart-plus"></i> Add To Cart
                         </button>

@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react'
 import api from "./api/api";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { CartContext } from '../context/CartContext';
 
 const ProductList = () => {
-
     const [product, setProduct] = useState([]);
     const {addToCart} = useContext(CartContext)
+    const navigate = useNavigate();
 
     useEffect(
         () => {
@@ -19,6 +19,17 @@ const ProductList = () => {
                 })
         }, []
     );
+
+
+    const handleAddToCart = (product) =>{
+        if(!localStorage.getItem("access_token")){
+            navigate('/login');
+            return;
+        }else{
+            addToCart(product);
+            return;
+        }
+    }
 
 
 
@@ -98,7 +109,7 @@ const ProductList = () => {
                                         In Stock
                                     </div> */}
 
-                                                <button onClick={()=> addToCart(product) } className="btn add-cart">
+                                                <button onClick={()=> handleAddToCart(product)} className="btn add-cart">
                                                     <i className="bi bi-cart-plus"></i>
                                                     Add To Cart
                                                 </button>
