@@ -213,3 +213,10 @@ class register_view(APIView):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
+
+class User_view(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self,request):
+        serializer = UserSerializer(request.user)
+        return Response(serializer.data, status=status.HTTP_200_OK)

@@ -2,14 +2,13 @@ import React,{useContext, useState} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { CartContext } from '../context/CartContext'
 import { removeToken } from '../utils/Auth'
+import { AuthContext } from '../context/AuthContext'
 
 const Navbar = () => {
     const { cartItems , clearCart } = useContext(CartContext);
     const navigate = useNavigate()
-    
-    const [isLoggedIn, setIsLoggedIn] = useState(
-        !!localStorage.getItem("access_token")
-    )
+    const {setIsLoggedIn,isLoggedIn, isSuperUser} = useContext(AuthContext);
+
     const handleLogout=()=>{
         removeToken();
         clearCart();
