@@ -4,7 +4,7 @@ import { CartContext } from '../context/CartContext'
 import { removeToken } from '../utils/Auth'
 
 const Navbar = () => {
-    const { cartItems } = useContext(CartContext);
+    const { cartItems , clearCart } = useContext(CartContext);
     const navigate = useNavigate()
     
     const [isLoggedIn, setIsLoggedIn] = useState(
@@ -12,6 +12,7 @@ const Navbar = () => {
     )
     const handleLogout=()=>{
         removeToken();
+        clearCart();
         setIsLoggedIn(false);
         navigate('/login');
     }

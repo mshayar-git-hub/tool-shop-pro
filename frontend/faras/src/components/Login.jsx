@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState , useContext} from 'react'
 import { useNavigate } from 'react-router-dom';
 import api from './api/api'
 import { saveToken } from '../utils/Auth';
+import { CartContext } from '../context/CartContext';
 
 const Login = () => {
     const [msg, setMsg] = useState();
+    const { fetchCart } = useContext(CartContext);
     const [showPassword, setShowPassword] = useState(false);
     const [form, setForm] = useState({
         username: "",
@@ -20,8 +22,8 @@ const Login = () => {
         e.preventDefault();
         try{
             const res = await api.post('token/',form)
-            console.log(res.data);
             saveToken(res.data);
+            await fetchCart();
             setMsg("Login Successfull. Redirecting...")
             setTimeout(()=>{
                 navigate("/")
