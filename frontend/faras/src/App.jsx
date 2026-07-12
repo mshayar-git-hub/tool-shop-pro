@@ -10,6 +10,12 @@ import CheckoutPage from './pages/CheckoutPage';
 import PrivateRouter from './components/router/PrivateRouter'
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
+import DashboardPage from './pages/dashboard/DashboardPage';
+import Main from './components/dashboard/Main';
+import Profile from './components/dashboard/Profile';
+import Products from './components/dashboard/Products';
+import Orders from './components/dashboard/Orders';
+import Users from './components/dashboard/Users';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -48,6 +54,22 @@ function App() {
             <Route
             path='/register'
             element={<SignupPage/>}/>
+
+
+
+{/* ..........................DASHBOARD...................... */}
+          <Route element={<PrivateRouter/>}>
+          <Route
+            path='/dashboard'
+            element={<DashboardPage />}>
+
+            <Route index element={<Main />} />
+            <Route path='profile' element={<Profile />} />
+            <Route path='products' element={<Products/>}/>
+            <Route path='orders' element={<Orders/>}/>
+            <Route path='users' element={<Users/>}/>
+          </Route>
+          </Route>
 
           
 
