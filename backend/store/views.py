@@ -161,12 +161,14 @@ class Create_order(APIView):
         try:
             data = request.data 
 
-            name = data.get('name')
-            address = data.get('address')
-            phone = data.get('phone')
-            payment_method = data.get('payment_method')
+            building = data.get("building")
+            area = data.get("area")
+            city = data.get("city")
+            payment_method = data.get("payment_method", "COD")
+            delivery_method = data.get("delivery_method")
 
             cart ,created = Cart.objects.get_or_create(user = request.user)
+
             if not cart or not cart.items.exists():
                 return Response ({'message':"items not found"}, status = status.HTTP_400_BAD_REQUEST)
             
@@ -174,8 +176,13 @@ class Create_order(APIView):
 
             # create order
             order = Order.objects.create(
-                user = request.user,
-                total_amount = total
+                user=request.user,
+                building=building,
+                area=area,
+                city=city,
+                payment_method=payment_method,
+                delivery_method=delivery_method,
+                total_amount=total,
             )
 
             # create order item
@@ -220,3 +227,9 @@ class User_view(APIView):
     def get(self,request):
         serializer = UserSerializer(request.user)
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+class All_User(APIView):
+    def get(self,request):
+        users = User.objects.all()
+        serializer = UserSerializer(users, many=True)
+        return Response(serializer.data)

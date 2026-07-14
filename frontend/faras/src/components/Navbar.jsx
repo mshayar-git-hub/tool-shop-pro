@@ -7,12 +7,13 @@ import { AuthContext } from '../context/AuthContext'
 const Navbar = () => {
     const { cartItems, clearCart } = useContext(CartContext);
     const navigate = useNavigate()
-    const { setIsLoggedIn, isLoggedIn, isSuperUser } = useContext(AuthContext);
+    const { setIsLoggedIn, isLoggedIn, isSuperUser , user, setUser } = useContext(AuthContext);
 
     const handleLogout = () => {
         removeToken();
         clearCart();
         setIsLoggedIn(false);
+        setUser(null);
         navigate('/login');
     }
 
@@ -114,6 +115,13 @@ const Navbar = () => {
                                             className="btn btn-outline-warning rounded-pill"
                                         >
                                             Dashboard
+                                        </Link>
+                                    )}
+                                    {user && (
+                                        <Link
+                                            className="btn btn-outline-warning rounded-pill"
+                                        >
+                                            {user.username}
                                         </Link>
                                     )}
 

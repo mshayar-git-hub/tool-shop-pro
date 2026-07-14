@@ -1,8 +1,16 @@
-import React from 'react'
+import React,{useContext, useEffect } from 'react'
+import { DashContext } from '../../context/DashContext'
 
 const Products = () => {
+    const {product,getProduct , category , getCategory } = useContext(DashContext);
+
+    useEffect(()=>{
+        getProduct();
+        getCategory();
+    },[]);
   return (
     <>
+    
       <div className="col-lg-9 col-xl-10">
 
                     <div className="content-box">
@@ -30,22 +38,19 @@ const Products = () => {
 
                             </div>
 
+                            
                             <div className="col-lg-3">
 
                                 <select className="form-select">
 
                                     <option>All Categories</option>
-                                    <option>Cement</option>
-                                    <option>Steel</option>
-                                    <option>Bricks</option>
-                                    <option>Tiles</option>
-                                    <option>Paint</option>
-                                    <option>Electrical</option>
-                                    <option>Plumbing</option>
-
+                                    {category.map((category) =>(
+                                    <option>{category.cat_name} </option>
+                                    ))}
                                 </select>
 
                             </div>
+                            
 
                             <div className="col-lg-3">
 
@@ -81,28 +86,39 @@ const Products = () => {
                                 </thead>
 
                                 <tbody>
-
+                                    {product.map((product)=>(
                                     <tr>
 
-                                        <td>1</td>
+                                        <td>{product.id} </td>
 
-                                        <td>
-                                            <img src="images/products/product1.jpg" className="product-img"/>
-                                        </td>
+                                            <td>
+                                                <img
+                                                    src={product.image}
+                                                    className="product-img_D"
+                                                    alt={product.product_name}
+                                                />
+                                            </td>
 
-                                        <td>UltraTech Cement</td>
+                                        <td>{product?.product_name} </td>
 
-                                        <td>Cement</td>
+                                        <td>{product.category.cat_name} </td>
 
-                                        <td>$12</td>
+                                        <td>${product.price}</td>
 
-                                        <td>150</td>
+                                        <td> XXX </td>
 
-                                        <td>
-                                            <span className="badge bg-success">
-                                                In Stock
-                                            </span>
-                                        </td>
+                                            <td>
+                                                {product.in_stock ? (
+                                                    <span className="badge bg-success">
+                                                        In Stock
+                                                    </span>
+                                                ) : (
+                                                    <span className="badge bg-danger">
+                                                        Out of Stock
+                                                    </span>
+                                                )}
+
+                                            </td>
 
                                         <td>
 
@@ -121,86 +137,7 @@ const Products = () => {
                                         </td>
 
                                     </tr>
-
-                                    <tr>
-
-                                        <td>2</td>
-
-                                        <td>
-                                            <img src="images/products/product2.jpg" className="product-img"/>
-                                        </td>
-
-                                        <td>Red Clay Bricks</td>
-
-                                        <td>Bricks</td>
-
-                                        <td>$8</td>
-
-                                        <td>0</td>
-
-                                        <td>
-                                            <span className="badge bg-danger">
-                                                Out of Stock
-                                            </span>
-                                        </td>
-
-                                        <td>
-
-                                            <button className="btn btn-sm btn-info">
-                                                <i className="bi bi-eye"></i>
-                                            </button>
-
-                                            <button className="btn btn-sm btn-warning">
-                                                <i className="bi bi-pencil"></i>
-                                            </button>
-
-                                            <button className="btn btn-sm btn-danger">
-                                                <i className="bi bi-trash"></i>
-                                            </button>
-
-                                        </td>
-
-                                    </tr>
-
-                                    <tr>
-
-                                        <td>3</td>
-
-                                        <td>
-                                            <img src="images/products/product3.jpg" className="product-img"/>
-                                        </td>
-
-                                        <td>Wall Paint</td>
-
-                                        <td>Paint</td>
-
-                                        <td>$18</td>
-
-                                        <td>35</td>
-
-                                        <td>
-                                            <span className="badge bg-success">
-                                                In Stock
-                                            </span>
-                                        </td>
-
-                                        <td>
-
-                                            <button className="btn btn-sm btn-info">
-                                                <i className="bi bi-eye"></i>
-                                            </button>
-
-                                            <button className="btn btn-sm btn-warning">
-                                                <i className="bi bi-pencil"></i>
-                                            </button>
-
-                                            <button className="btn btn-sm btn-danger">
-                                                <i className="bi bi-trash"></i>
-                                            </button>
-
-                                        </td>
-
-                                    </tr>
+                                   ))}
 
                                 </tbody>
 

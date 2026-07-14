@@ -1,8 +1,13 @@
-import React from 'react'
+import React,{useContext} from 'react'
+import { AuthContext } from '../../context/AuthContext'
 
 const Profile = () => {
+
+    const {user} = useContext(AuthContext);
+
     return (
         <>
+            {user && (
             <div className="col-lg-9 col-xl-10">
 
                 <div className="content-box">
@@ -19,11 +24,18 @@ const Profile = () => {
 
                                 <img src="images/profile.jpg" alt="Profile" />
 
-                                <h4 className="mt-3">John Smith</h4>
+                                <h4 className="mt-3"> {user.username} </h4>
 
-                                <p className="text-muted mb-1">
-                                    Administrator
-                                </p>
+                                {user.is_superuser ? (
+                                    <p className="text-muted mb-1">
+                                        Super User
+                                    </p>
+                                ) : (
+                                    <p className="text-muted mb-1">
+                                        Staff
+                                    </p>
+                                )}
+                                
 
                                 <button className="btn btn-primary mt-3">
                                     Edit Profile
@@ -49,7 +61,7 @@ const Profile = () => {
 
                                         <label>Name</label>
 
-                                        <input type="text" className="form-control" value="John Smith" />
+                                        <input type="text" className="form-control" value={user.username} />
 
                                     </div>
 
@@ -57,7 +69,7 @@ const Profile = () => {
 
                                         <label>Email</label>
 
-                                        <input type="email" className="form-control" value="john@gmail.com" />
+                                        <input type="email" className="form-control" value={user.email} />
 
                                     </div>
 
@@ -73,7 +85,7 @@ const Profile = () => {
 
                                         <label>Role</label>
 
-                                        <input type="text" className="form-control" value="Administrator" />
+                                        <input type="text" className="form-control" value=" - " />
 
                                     </div>
 
@@ -100,6 +112,7 @@ const Profile = () => {
                 </div>
 
             </div>
+            )}
         </>
     )
 }

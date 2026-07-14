@@ -14,10 +14,11 @@ const Checkout = (props) => {
     const { total, cartItems } = useContext(CartContext);
 
     const [form, setForm] = useState({
-        name: "",
-        phone: "",
-        address: "",
+        building: "",
+        area: "",
+        city: "",
         payment_method: "COD",
+        delivery_method:"",
     })
 
     const handleChange = (e) => {
@@ -99,8 +100,16 @@ const Checkout = (props) => {
                                         <div className="row g-3">
 
                                             <div className="col-12">
-                                                <label className="form-label">Full Address</label>
-                                                <input type="text" name="address" placeholder='full address' value={form.address} onChange={handleChange} required className="form-control" />
+                                                <label className="form-label">Building</label>
+                                                <input type="text" name="Building" placeholder='Building' value={form.Building} onChange={handleChange} required className="form-control" />
+                                            </div>
+                                            <div className="col-12">
+                                                <label className="form-label">Area</label>
+                                                <input type="text" name="Area" placeholder='Area' value={form.Area} onChange={handleChange} required className="form-control" />
+                                            </div>
+                                            <div className="col-12">
+                                                <label className="form-label">City</label>
+                                                <input type="text" name="City" placeholder='City' value={form.City} onChange={handleChange} required className="form-control" />
                                             </div>
                                         </div>
                                     </div>
@@ -117,7 +126,7 @@ const Checkout = (props) => {
                                             <div className="col-md-6">
                                                 <div className="border rounded-4 p-4 h-100">
                                                     <div className="form-check">
-                                                        <input className="form-check-input" type="radio" name="delivery" checked readOnly/>
+                                                        <input className="form-check-input" type="radio" readOnly name="delivery_method" value='standard' onChange={handleChange} checked={form.delivery_method === 'standard'}/>
 
                                                         <label className="form-check-label w-100">
 
@@ -133,7 +142,7 @@ const Checkout = (props) => {
                                             <div className="col-md-6">
                                                 <div className="border rounded-4 p-4 h-100">
                                                     <div className="form-check">
-                                                        <input className="form-check-input" type="radio" name="delivery" readOnly />
+                                                        <input className="form-check-input" type="radio" readOnly name="delivery_method" value='express' onChange={handleChange} checked={form.delivery_method === 'express'}/>
                                                         <label className="form-check-label w-100">
                                                             <i className="bi bi-lightning-charge fs-2 text-warning"></i>
                                                             <h5 className="mt-3 mb-1">Express Delivery</h5>
@@ -158,7 +167,7 @@ const Checkout = (props) => {
                                                 <div className="border rounded-4 p-4">
                                                     <div className="form-check">
 
-                                                        <input className="form-check-input" type="radio" name="payment_method" value='online' onChange={handleChange} checked={form.payment_method === 'online'} />
+                                                        <input className="form-check-input" type="radio" name="payment_method" value='online' onChange={handleChange} checked={form.payment_method === 'ONLINE'} />
 
                                                         <label className="form-check-label" value="Online">
                                                             <i className="bi bi-credit-card fs-2 text-primary"></i>
@@ -171,7 +180,7 @@ const Checkout = (props) => {
                                             <div className="col-md-6">
                                                 <div className="border rounded-4 p-4">
                                                     <div className="form-check">
-                                                        <input className="form-check-input" type="radio" name="payment_method" value='cod' onChange={handleChange} checked={form.payment_method === 'cod'} />
+                                                        <input className="form-check-input" type="radio" name="payment_method" value='cod' onChange={handleChange} checked={form.payment_method === 'COD'} />
                                                         <label className="form-check-label" value='COD'>
                                                             <i className="bi bi-cash-stack fs-2 text-success"></i>
                                                             <h5 className="mt-3">Cash on Delivery</h5>

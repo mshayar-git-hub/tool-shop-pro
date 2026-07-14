@@ -1,6 +1,13 @@
-import React from 'react'
+import React, {useContext, useEffect} from 'react'
+import { DashContext } from '../../context/DashContext'
 
 const Users = () => {
+    const {getUsers, allUsers} = useContext(DashContext);
+
+    useEffect(()=>{
+        getUsers();
+    } , []);
+
   return (
     <>
       <div className="col-lg-9 col-xl-10">
@@ -63,11 +70,12 @@ const Users = () => {
 
                                 </thead>
 
+                                {allUsers.map((users)=>(
                                 <tbody>
 
                                     <tr>
 
-                                        <td>1</td>
+                                        <td>{users.id} </td>
 
                                         <td>
 
@@ -77,11 +85,7 @@ const Users = () => {
 
                                                 <div>
 
-                                                    <strong>John Smith</strong><br/>
-
-                                                    <small className="text-muted">
-                                                        johnsmith
-                                                    </small>
+                                                    <strong>{users.username} </strong><br/>
 
                                                 </div>
 
@@ -89,147 +93,25 @@ const Users = () => {
 
                                         </td>
 
-                                        <td>john@gmail.com</td>
+                                        <td>{users.email} </td>
 
-                                        <td>+91 9876543210</td>
+                                        <td>+91 XXXXXXXXX</td>
 
                                         <td>08 Jul 2026</td>
 
-                                        <td>
+                                            <td>
+                                                {users.is_superuser ? (
+                                                    <span className="badge bg-primary">
+                                                        Super User
+                                                    </span>
+                                                ) : (
+                                                    <span className="badge bg-primary">
+                                                        Staff
+                                                    </span>
+                                                )}
 
-                                            <span className="badge bg-primary">
-                                                Customer
-                                            </span>
 
-                                        </td>
-
-                                        <td>
-
-                                            <span className="badge bg-success">
-                                                Active
-                                            </span>
-
-                                        </td>
-
-                                        <td>
-
-                                            <button className="btn btn-sm btn-info">
-                                                <i className="bi bi-eye"></i>
-                                            </button>
-
-                                            <button className="btn btn-sm btn-warning">
-                                                <i className="bi bi-pencil"></i>
-                                            </button>
-
-                                            <button className="btn btn-sm btn-danger">
-                                                <i className="bi bi-trash"></i>
-                                            </button>
-
-                                        </td>
-
-                                    </tr>
-
-                                    <tr>
-
-                                        <td>2</td>
-
-                                        <td>
-
-                                            <div className="d-flex align-items-center">
-
-                                                <img src="images/user2.jpg" className="user-img me-3"/>
-
-                                                <div>
-
-                                                    <strong>Emma Watson</strong><br/>
-
-                                                    <small className="text-muted">
-                                                        emma
-                                                    </small>
-
-                                                </div>
-
-                                            </div>
-
-                                        </td>
-
-                                        <td>emma@gmail.com</td>
-
-                                        <td>+91 9988776655</td>
-
-                                        <td>05 Jul 2026</td>
-
-                                        <td>
-
-                                            <span className="badge bg-primary">
-                                                Customer
-                                            </span>
-
-                                        </td>
-
-                                        <td>
-
-                                            <span className="badge bg-success">
-                                                Active
-                                            </span>
-
-                                        </td>
-
-                                        <td>
-
-                                            <button className="btn btn-sm btn-info">
-                                                <i className="bi bi-eye"></i>
-                                            </button>
-
-                                            <button className="btn btn-sm btn-warning">
-                                                <i className="bi bi-pencil"></i>
-                                            </button>
-
-                                            <button className="btn btn-sm btn-danger">
-                                                <i className="bi bi-trash"></i>
-                                            </button>
-
-                                        </td>
-
-                                    </tr>
-
-                                    <tr>
-
-                                        <td>3</td>
-
-                                        <td>
-
-                                            <div className="d-flex align-items-center">
-
-                                                <img src="images/user3.jpg" className="user-img me-3"/>
-
-                                                <div>
-
-                                                    <strong>David Lee</strong><br/>
-
-                                                    <small className="text-muted">
-                                                        davidlee
-                                                    </small>
-
-                                                </div>
-
-                                            </div>
-
-                                        </td>
-
-                                        <td>david@gmail.com</td>
-
-                                        <td>+91 8877665544</td>
-
-                                        <td>02 Jul 2026</td>
-
-                                        <td>
-
-                                            <span className="badge bg-dark">
-                                                Admin
-                                            </span>
-
-                                        </td>
+                                            </td>
 
                                         <td>
 
@@ -258,6 +140,7 @@ const Users = () => {
                                     </tr>
 
                                 </tbody>
+                                ))}
 
                             </table>
 

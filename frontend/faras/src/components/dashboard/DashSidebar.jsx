@@ -6,15 +6,16 @@ import { AuthContext } from '../../context/AuthContext';
 
 const DashSidebar = () => {
     const { clearCart } = useContext(CartContext);
-        const { setIsLoggedIn } = useContext(AuthContext);
+    const { setIsLoggedIn } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const handleLogout = () => {
-            removeToken();
-            clearCart();
-            setIsLoggedIn(false);
-            navigate('/login');
-        }
+        removeToken();
+        clearCart();
+        setIsLoggedIn(false);
+        setUser(null);
+        navigate('/login');
+    }
 
 
     return (

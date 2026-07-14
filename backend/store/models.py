@@ -19,6 +19,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10 , decimal_places=3)
     image = models.ImageField(upload_to='products/',blank=True)
     trending = models.BooleanField(default=False)
+    in_stock = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -39,14 +40,24 @@ class UserProfile(models.Model):
 
 
 class Order (models.Model):
+    PAYMENT_CHOICE = {
+        ('COD','COD'),
+        ('ONLINE','ONLINE'),
+    }
+
     user = models.ForeignKey(User, on_delete=models.CASCADE , blank=True , null=True)
+    building = models.CharField(max_length=100)
+    area = models.CharField(max_length=100)
+    city = models.CharField(max_length=100)
+    payment_method = models.CharField(max_length=50, choices= PAYMENT_CHOICE , default='COD' )
+    delivery_method = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     total_amount = models.DecimalField(max_digits=10, decimal_places=3)
 
     def __str__(self):
         return f"Order {self.id}"
-    
+
 
 
 class OrderItem(models.Model):
