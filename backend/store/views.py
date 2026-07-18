@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework import generics, status
-from .serializers import CartItemSerializer, CartSerializer, CategorySerializer, OrderItemSerializer, ProductSerializer
+from user.models import Address, UserProfile
+from .serializers import CartItemSerializer, CartSerializer, CategorySerializer, OrderItemSerializer, ProductSerializer, UserProfileSerializer
 from .models import Cart, CartItem, Category, Order, OrderItem, Product
 from rest_framework.views import APIView
 from rest_framework.decorators import permission_classes
@@ -31,7 +32,8 @@ class get_cart_generic(generics.RetrieveAPIView):
     serializer_class = CartSerializer
 
     def get_object(self):
-        cart, created = Cart.objects.get_or_create(user=self.request.user)
+        user_profile = UserProfile.objects.get(user = self.request.user)
+        cart, created = Cart.objects.get_or_create(user_profile=user_profile)
         return cart
 
 class add_to_cart(generics.UpdateAPIView):
@@ -55,8 +57,9 @@ class add_to_cart(generics.UpdateAPIView):
                 {"error": "Product not found"},
                 status=status.HTTP_404_NOT_FOUND
             )
-
-        cart, created = Cart.objects.get_or_create(user=request.user)
+        
+        user_profile=UserProfile.objects.get(user=request.user)
+        cart, created = Cart.objects.get_or_create(user_profile=user_profile)
 
         cart_item, created = CartItem.objects.get_or_create(
             cart=cart,
@@ -159,11 +162,11 @@ class Create_order(APIView):
     permission_classes  = [IsAuthenticated]
     def post(self,request):
         try:
-            data = request.data 
+            user_profile = UserProfile.objects.get(user=request.user)
+            address_id = request.data.get("address_id")
+            address = Address.objects.get(id=address_id, user_profile=user_profile)
 
-            building = data.get("building")
-            area = data.get("area")
-            city = data.get("city")
+            data = request.data 
             payment_method = data.get("payment_method", "COD")
             delivery_method = data.get("delivery_method")
 
@@ -176,10 +179,8 @@ class Create_order(APIView):
 
             # create order
             order = Order.objects.create(
-                user=request.user,
-                building=building,
-                area=area,
-                city=city,
+                user_profile = user_profile,
+                address = address,
                 payment_method=payment_method,
                 delivery_method=delivery_method,
                 total_amount=total,
@@ -231,5 +232,5 @@ class User_view(APIView):
 class All_User(APIView):
     def get(self,request):
         users = User.objects.all()
-        serializer = UserSerializer(users, many=True)
+        serializer = UserProfileSerializer(users, many=True)
         return Response(serializer.data)
