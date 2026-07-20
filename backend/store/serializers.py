@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from user.models import UserProfile
-from .models import Cart, CartItem, OrderItem, Product,Category
+from .models import Cart, CartItem, Order, OrderItem, Product,Category
 from django.contrib.auth.models import User
 from user.models import Address
 
@@ -34,7 +34,16 @@ class CartSerializer(serializers.ModelSerializer):
         model = Cart
         fields = '__all__'
 
+class OrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = '__all__'
+
 class OrderItemSerializer(serializers.ModelSerializer):
+    product = ProductSerializer(read_only = True)
+    order = OrderSerializer(read_only = True)
+    username = serializers.CharField(source="order.user_profile.user.username", read_only=True)
+
     class Meta:
         model = OrderItem
         fields ='__all__'

@@ -1,6 +1,14 @@
-import React from 'react'
+import React, {useState,useContext, useEffect} from 'react'
+import { DashContext } from '../../context/DashContext'
 
 const Orders = () => {
+
+    const {getOrder,allOrders } = useContext(DashContext);
+
+    useEffect(()=>{
+        getOrder();
+    },[]);
+
   return (
     <>
       <div className="col-lg-9 col-xl-10">
@@ -69,7 +77,7 @@ const Orders = () => {
                                         <th>Customer</th>
                                         <th>Date</th>
                                         <th>Total</th>
-                                        <th>Payment</th>
+                                        <th>Payment method</th>
                                         <th>Status</th>
                                         <th>Actions</th>
 
@@ -77,22 +85,30 @@ const Orders = () => {
 
                                 </thead>
 
+                                {allOrders.map((order)=>(
                                 <tbody>
 
                                     <tr>
 
-                                        <td>#ORD1001</td>
+                                        <td>#{order.order.id} </td>
 
-                                        <td>John Smith</td>
+                                        <td>{order.username} </td>
 
-                                        <td>12 Jul 2026</td>
+                                        <td>{order.created_at}</td>
 
-                                        <td>$245</td>
+                                        <td>${order.order.total_amount} </td>
 
                                         <td>
+                                            {order.order.payment_method == 'COD' ? (
                                             <span className="badge bg-success">
-                                                Paid
+                                                COD
                                             </span>
+                                            ) : (
+                                                <span className="badge bg-danger">
+                                                    ONLINE
+                                                </span>
+                                            )}
+                                            
                                         </td>
 
                                         <td>
@@ -115,79 +131,8 @@ const Orders = () => {
 
                                     </tr>
 
-                                    <tr>
-
-                                        <td>#ORD1002</td>
-
-                                        <td>Emma Watson</td>
-
-                                        <td>11 Jul 2026</td>
-
-                                        <td>$90</td>
-
-                                        <td>
-                                            <span className="badge bg-success">
-                                                Paid
-                                            </span>
-                                        </td>
-
-                                        <td>
-                                            <span className="badge bg-success">
-                                                Delivered
-                                            </span>
-                                        </td>
-
-                                        <td>
-
-                                            <button className="btn btn-sm btn-info">
-                                                <i className="bi bi-eye"></i>
-                                            </button>
-
-                                            <button className="btn btn-sm btn-warning">
-                                                <i className="bi bi-pencil-square"></i>
-                                            </button>
-
-                                        </td>
-
-                                    </tr>
-
-                                    <tr>
-
-                                        <td>#ORD1003</td>
-
-                                        <td>David Lee</td>
-
-                                        <td>10 Jul 2026</td>
-
-                                        <td>$420</td>
-
-                                        <td>
-                                            <span className="badge bg-danger">
-                                                Unpaid
-                                            </span>
-                                        </td>
-
-                                        <td>
-                                            <span className="badge bg-warning text-dark">
-                                                Pending
-                                            </span>
-                                        </td>
-
-                                        <td>
-
-                                            <button className="btn btn-sm btn-info">
-                                                <i className="bi bi-eye"></i>
-                                            </button>
-
-                                            <button className="btn btn-sm btn-warning">
-                                                <i className="bi bi-pencil-square"></i>
-                                            </button>
-
-                                        </td>
-
-                                    </tr>
-
                                 </tbody>
+                                ))}
 
                             </table>
 

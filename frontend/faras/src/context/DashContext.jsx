@@ -8,6 +8,7 @@ const DashProvider = ({children}) => {
   const [product, setProduct] = useState([]);
   const [category, setCategory] = useState([]);
   const [allUsers, setAllUsers] = useState([]);
+  const [allOrders,setAllOrders] = useState([]);
 
   const getProduct = async() =>{
     try{
@@ -36,9 +37,18 @@ const DashProvider = ({children}) => {
     }
   }
 
+  const getOrder = async() => {
+    try{
+      const res= await api.get('/orders/show');
+      setAllOrders(res.data);
+    }catch(err){
+      console.log("error: ", err)
+    }
+  }
+
   return (
     <>
-      <DashContext.Provider value={{product, getProduct , getCategory,category , getUsers,allUsers}}>
+      <DashContext.Provider value={{product, getProduct , getCategory,category , getUsers,allUsers ,getOrder,allOrders}}>
         {children}
       </DashContext.Provider>
     </>
