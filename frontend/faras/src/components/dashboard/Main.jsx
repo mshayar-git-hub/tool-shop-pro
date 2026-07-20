@@ -1,6 +1,15 @@
-import React from 'react'
+import React,{useContext,useEffect} from 'react'
+import { DashContext } from '../../context/DashContext';
 
 const Main = () => {
+
+    const {product,getProduct,getUsers,allUsers} = useContext(DashContext);
+
+    useEffect(()=>{
+        getProduct();
+        getUsers();
+    },[]);
+
     return (
         <>
             <div className="col-lg-9 col-xl-10">
@@ -16,7 +25,7 @@ const Main = () => {
 
                                 <div>
                                     <h5>Products</h5>
-                                    <h3>120</h3>
+                                    <h3>{product.length} </h3>
                                 </div>
                             </div>
                         </div>
@@ -41,7 +50,7 @@ const Main = () => {
                                 </div>
                                 <div>
                                     <h5>Revenue</h5>
-                                    <h3>$9,540</h3>
+                                    <h3>$0</h3>
                                 </div>
                             </div>
                         </div>
@@ -54,7 +63,7 @@ const Main = () => {
 
                                 <div>
                                     <h5>Users</h5>
-                                    <h3>340</h3>
+                                    <h3>{allUsers.length} </h3>
                                 </div>
                             </div>
                         </div>

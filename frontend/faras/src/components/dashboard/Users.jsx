@@ -75,7 +75,7 @@ const Users = () => {
 
                                     <tr>
 
-                                        <td>{users.id} </td>
+                                        <td>{users.user.id} </td>
 
                                         <td>
 
@@ -85,7 +85,7 @@ const Users = () => {
 
                                                 <div>
 
-                                                    <strong>{users.username} </strong><br/>
+                                                    <strong>{users.user.username} </strong><br/>
 
                                                 </div>
 
@@ -93,14 +93,14 @@ const Users = () => {
 
                                         </td>
 
-                                        <td>{users.email} </td>
+                                        <td>{users.user.email} </td>
 
                                         <td>+91 XXXXXXXXX</td>
 
                                         <td>08 Jul 2026</td>
 
                                             <td>
-                                                {users.is_superuser ? (
+                                                {users.user.is_superuser ? (
                                                     <span className="badge bg-primary">
                                                         Super User
                                                     </span>

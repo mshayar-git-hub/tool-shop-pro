@@ -230,8 +230,8 @@ class User_view(APIView):
     
 class All_User(APIView):
     def get(self, request):
-        users = User.objects.all()
-        serializer = UserProfileSerializer(users, many=True)
+        user_profile = UserProfile.objects.all()
+        serializer = UserProfileSerializer(user_profile, many=True)
         return Response(serializer.data)
     
 class AddressView(APIView):
