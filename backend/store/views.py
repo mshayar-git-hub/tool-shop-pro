@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework import generics, status
 from user.models import Address, UserProfile
-from .serializers import CartItemSerializer, CartSerializer, CategorySerializer, OrderItemSerializer, ProductSerializer, UserProfileSerializer
+from .serializers import AddressSerializer, CartItemSerializer, CartSerializer, CategorySerializer, OrderItemSerializer, ProductSerializer, UserProfileSerializer
 from .models import Cart, CartItem, Category, Order, OrderItem, Product
 from rest_framework.views import APIView
 from rest_framework.decorators import permission_classes
@@ -162,15 +162,14 @@ class Create_order(APIView):
     permission_classes  = [IsAuthenticated]
     def post(self,request):
         try:
-            user_profile = UserProfile.objects.get(user=request.user)
-            address_id = request.data.get("address_id")
-            address = Address.objects.get(id=address_id, user_profile=user_profile)
-
             data = request.data 
+            user_profile = UserProfile.objects.get(user=request.user)
+            address_id = data.get("address_id")
+            address = Address.objects.get(id=address_id, user_profile=user_profile)
             payment_method = data.get("payment_method", "COD")
             delivery_method = data.get("delivery_method")
 
-            cart ,created = Cart.objects.get_or_create(user = request.user)
+            cart ,created = Cart.objects.get_or_create(user_profile=user_profile)
 
             if not cart or not cart.items.exists():
                 return Response ({'message':"items not found"}, status = status.HTTP_400_BAD_REQUEST)
@@ -230,7 +229,22 @@ class User_view(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
     
 class All_User(APIView):
-    def get(self,request):
+    def get(self, request):
         users = User.objects.all()
         serializer = UserProfileSerializer(users, many=True)
         return Response(serializer.data)
+    
+class AddressView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self,request):
+        user_profile = UserProfile.objects.get(user=request.user)
+        address = Address.objects.filter(user_profile=user_profile)
+
+        serializer = AddressSerializer(address, many=True)
+        return Response(serializer.data)
+
+    def post(self,request):
+        serializer = AddressSerializer(data=request.data)
+        if serializer.is_valid():
+            return Response({'message':'address created Successfully.'},status=status.HTTP_201_CREATED)

@@ -1,12 +1,14 @@
 import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { CartContext } from '../context/CartContext'
+import { AuthContext } from '../context/AuthContext'
 import api from './api/api'
 
 
 const Checkout = (props) => {
 
     const { clearCart } = useContext(CartContext)
+    const {address,getAddress} = useContext(AuthContext)
     const navigate = useNavigate();
     const [message, setMessage] = useState("")
     const [loading, setLoading] = useState(false)
@@ -14,9 +16,7 @@ const Checkout = (props) => {
     const { total, cartItems } = useContext(CartContext);
 
     const [form, setForm] = useState({
-        building: "",
-        area: "",
-        city: "",
+        address_id:'1',
         payment_method: "COD",
         delivery_method:"",
     })
@@ -67,7 +67,7 @@ const Checkout = (props) => {
                         <div className="row g-4">
                             {/* <!-- LEFT SIDE --> */}
                             <div className="col-lg-8">
-                                {/* <!-- Contact Information --> */}
+                                {/* <!-- Contact Information -->
                                 <div className="card shadow-sm border-0 rounded-4 mb-4">
                                     <div className="card-body p-4">
                                         <h4 className="fw-bold mb-4">Contact Information</h4>
@@ -89,28 +89,30 @@ const Checkout = (props) => {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
 
                                 {/* <!-- Shipping Address --> */}
 
                                 <div className="card shadow-sm border-0 rounded-4 mb-4">
                                     <div className="card-body p-4">
                                         <h4 className="fw-bold mb-4">Shipping Address</h4>
+                                        <div className="col-12">
+                                            <label className="form-label">Select Address</label>
+                                            <select
+                                                name="address_id"
+                                                value={form.address_id}
+                                                onChange={handleChange}
+                                                className="form-select"
+                                                required
+                                            >
+                                                <option value="">-- Select Address --</option>
 
-                                        <div className="row g-3">
-
-                                            <div className="col-12">
-                                                <label className="form-label">Building</label>
-                                                <input type="text" name="Building" placeholder='Building' value={form.Building} onChange={handleChange} required className="form-control" />
-                                            </div>
-                                            <div className="col-12">
-                                                <label className="form-label">Area</label>
-                                                <input type="text" name="Area" placeholder='Area' value={form.Area} onChange={handleChange} required className="form-control" />
-                                            </div>
-                                            <div className="col-12">
-                                                <label className="form-label">City</label>
-                                                <input type="text" name="City" placeholder='City' value={form.City} onChange={handleChange} required className="form-control" />
-                                            </div>
+                                                {address.map((addr) => (
+                                                    <option key={addr.id} value={addr.id}>
+                                                        {`${addr.country}, ${addr.area}, Block/Street ${addr.block_street}, Building/Floor ${addr.building_floor}`}
+                                                    </option>
+                                                ))}
+                                            </select>
                                         </div>
                                     </div>
                                 </div>

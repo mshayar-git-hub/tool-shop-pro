@@ -9,6 +9,7 @@ const AuthProvider = ({children}) => {
     const [user, setUser ] = useState(null);
     const [isSuperUser, setIsSuperUser] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [address,setAddress] = useState([]);
 
     const loadUser = async () =>{
         setLoading(true);
@@ -27,17 +28,29 @@ const AuthProvider = ({children}) => {
         }
     }
 
+    const getAddress = async() => {
+        try{
+            const res = await api.get("/address");
+            setAddress(res.data);
+        }catch(error){
+            console.log("error= ",error)
+        }
+    }
+
     useEffect(()=>{
         if (localStorage.getItem("access_token")){
             loadUser();
+            getAddress();
         }else{
             setLoading(false);
         }
     }, []);
 
+    
+
   return (
     <>
-      <AuthContext.Provider value={{isLoggedIn,setIsLoggedIn,user,setUser,isSuperUser,loading,loadUser}}>
+      <AuthContext.Provider value={{isLoggedIn,setIsLoggedIn,user,setUser,isSuperUser,loading,loadUser,getAddress,address}}>
         {children}
       </AuthContext.Provider>
     </>
