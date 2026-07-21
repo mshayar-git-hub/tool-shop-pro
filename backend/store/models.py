@@ -45,12 +45,18 @@ class Order (models.Model):
         ('COD','COD'),
         ('ONLINE','ONLINE'),
     }
+    STATUS_CHOICE ={
+        ('pending','Pending'),
+        ('delivered','Delivered'),
+        ('cancelled','Cancelled'),
+    }
 
     user_profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE , blank=True , null=True)
     address = models.ForeignKey(Address, on_delete=models.CASCADE, blank=True , null=True)
     payment_method = models.CharField(max_length=50, choices= PAYMENT_CHOICE , default='COD' )
     delivery_method = models.CharField(max_length=100)
     total_amount = models.DecimalField(max_digits=10, decimal_places=3)
+    status = models.CharField(max_length=50, choices=STATUS_CHOICE,default='pending')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -60,7 +66,7 @@ class Order (models.Model):
 
 
 class OrderItem(models.Model):
-    order = models.ForeignKey(Order,on_delete=models.CASCADE)   
+    order = models.ForeignKey(Order,on_delete=models.CASCADE,related_name='items')   
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveBigIntegerField(default=1)
     price = models.DecimalField(max_digits=10 , decimal_places=3)

@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework import generics, status
 from user.models import Address, UserProfile
-from .serializers import AddressSerializer, CartItemSerializer, CartSerializer, CategorySerializer, OrderItemSerializer, ProductSerializer, UserProfileSerializer
+from .serializers import AddressSerializer, CartItemSerializer, CartSerializer, CategorySerializer, OrderItemSerializer, OrderSerializer, ProductSerializer, UserProfileSerializer
 from .models import Cart, CartItem, Category, Order, OrderItem, Product
 from rest_framework.views import APIView
 from rest_framework.decorators import permission_classes
@@ -204,8 +204,8 @@ class Create_order(APIView):
 class Show_order(APIView):
     permission_classes = [IsAuthenticated]
     def get(self,request):
-        order_item = OrderItem.objects.all()
-        serializer = OrderItemSerializer(order_item,many=True)
+        order = Order.objects.all().order_by('-id')
+        serializer = OrderSerializer(order,many=True)
         return Response(serializer.data ,status=status.HTTP_200_OK)
     
 
@@ -230,8 +230,8 @@ class User_view(APIView):
     
 class All_User(APIView):
     def get(self, request):
-        user_profile = UserProfile.objects.all()
-        serializer = UserProfileSerializer(user_profile, many=True)
+        user = User.objects.all()
+        serializer = UserSerializer(user, many=True)
         return Response(serializer.data)
     
 class AddressView(APIView):

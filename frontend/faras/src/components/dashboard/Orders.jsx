@@ -78,60 +78,65 @@ const Orders = () => {
                                         <th>Date</th>
                                         <th>Total</th>
                                         <th>Payment method</th>
+                                        <th>delivery method</th>
                                         <th>Status</th>
-                                        <th>Actions</th>
+                                        <th>Action</th>
 
                                     </tr>
 
                                 </thead>
 
                                 {allOrders.map((order)=>(
-                                <tbody>
+                                    <tbody>
 
-                                    <tr>
+                                        <tr>
 
-                                        <td>#{order.order.id} </td>
+                                            <td>#{order.id} </td>
 
-                                        <td>{order.username} </td>
+                                            <td>{order.username} </td>
 
-                                        <td>{order.created_at}</td>
+                                            <td>{order.created_at}</td>
 
-                                        <td>${order.order.total_amount} </td>
+                                            <td>${order.total_amount} </td>
 
-                                        <td>
-                                            {order.order.payment_method == 'COD' ? (
-                                            <span className="badge bg-success">
-                                                COD
-                                            </span>
-                                            ) : (
-                                                <span className="badge bg-danger">
-                                                    ONLINE
+                                            <td>
+                                                {order.payment_method == 'COD' ? (
+                                                <span className="badge bg-success">
+                                                    COD
                                                 </span>
-                                            )}
-                                            
-                                        </td>
+                                                ) : (
+                                                    <span className="badge bg-danger">
+                                                        ONLINE
+                                                    </span>
+                                                )}
+                                                
+                                            </td>
 
-                                        <td>
-                                            <span className="badge bg-primary">
-                                                Processing
-                                            </span>
-                                        </td>
+                                            <td> {order.delivery_method}</td>
 
-                                        <td>
+                                            <td>
+                                                <span className="badge bg-primary">
+                                                    {order.status}
+                                                </span>
+                                            </td>
 
-                                            <button className="btn btn-sm btn-info">
-                                                <i className="bi bi-eye"></i>
-                                            </button>
+                            
 
-                                            <button className="btn btn-sm btn-warning">
-                                                <i className="bi bi-pencil-square"></i>
-                                            </button>
+                                            <td>
 
-                                        </td>
+                                                <button className="btn btn-sm btn-info">
+                                                    <i className="bi bi-eye"></i>
+                                                </button>
 
-                                    </tr>
+                                                <button className="btn btn-sm btn-warning">
+                                                    <i className="bi bi-pencil-square"></i>
+                                                </button>
 
-                                </tbody>
+                                            </td>
+
+                                        </tr>
+
+                                    </tbody>
                                 ))}
 
                             </table>

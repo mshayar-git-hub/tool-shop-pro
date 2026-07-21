@@ -34,34 +34,25 @@ class CartSerializer(serializers.ModelSerializer):
         model = Cart
         fields = '__all__'
 
-class OrderSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Order
-        fields = '__all__'
-
 class OrderItemSerializer(serializers.ModelSerializer):
     product = ProductSerializer(read_only = True)
-    order = OrderSerializer(read_only = True)
-    username = serializers.CharField(source="order.user_profile.user.username", read_only=True)
 
     class Meta:
         model = OrderItem
         fields ='__all__'
 
 
-
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ['id','username','email','is_superuser','is_staff','first_name','last_name']
-
-
-class UserProfileSerializer(serializers.ModelSerializer):
-    user = UserSerializer(read_only=True)
+class OrderSerializer(serializers.ModelSerializer):
+    username = serializers.CharField(source="user_profile.user.username", read_only=True)
+    items = OrderItemSerializer(many=True, read_only=True)
 
     class Meta:
-        model = UserProfile
-        fields = "__all__"
+        model = Order
+        fields = '__all__'
+
+
+
+
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -86,8 +77,24 @@ class RegisterSerializer(serializers.ModelSerializer):
         return user
     
 class AddressSerializer(serializers.ModelSerializer):
-    user = UserProfileSerializer
 
     class Meta:
         model = Address
         fields= '__all__'
+
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    addresses = AddressSerializer( many=True, read_only=True)
+
+    class Meta:
+        model = UserProfile
+        fields = "__all__"
+
+
+class UserSerializer(serializers.ModelSerializer):
+    profile = UserProfileSerializer(read_only=True)
+
+    class Meta:
+        model = User
+        fields = ['id','username','email','is_superuser','is_staff','is_active','first_name','last_name','profile',]
+

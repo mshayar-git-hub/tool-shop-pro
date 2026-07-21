@@ -75,7 +75,7 @@ const Users = () => {
 
                                     <tr>
 
-                                        <td>{users.user.id} </td>
+                                        <td>{users.id} </td>
 
                                         <td>
 
@@ -85,7 +85,7 @@ const Users = () => {
 
                                                 <div>
 
-                                                    <strong>{users.user.username} </strong><br/>
+                                                    <strong>{users.username} </strong><br/>
 
                                                 </div>
 
@@ -93,14 +93,14 @@ const Users = () => {
 
                                         </td>
 
-                                        <td>{users.user.email} </td>
+                                        <td>{users.email}</td>
 
-                                        <td>+91 XXXXXXXXX</td>
+                                        <td>{users.profile.phone_number}</td>
 
-                                        <td>08 Jul 2026</td>
+                                        <td>{users.profile.created_at} </td>
 
                                             <td>
-                                                {users.user.is_superuser ? (
+                                                {users.is_superuser ? (
                                                     <span className="badge bg-primary">
                                                         Super User
                                                     </span>
@@ -114,10 +114,16 @@ const Users = () => {
                                             </td>
 
                                         <td>
-
-                                            <span className="badge bg-success">
-                                                Active
-                                            </span>
+                                            {users.is_active ? (
+                                                <span className="badge bg-success">
+                                                    Active
+                                                </span>
+                                            ):(
+                                                <span className="badge bg-success">
+                                                    De Active
+                                                </span>
+                                            )}
+                                            
 
                                         </td>
 

@@ -1,13 +1,17 @@
 import React,{useContext,useEffect} from 'react'
 import { DashContext } from '../../context/DashContext';
+import { Link } from 'react-router-dom'
 
 const Main = () => {
 
-    const {product,getProduct,getUsers,allUsers} = useContext(DashContext);
+    const {product,getProduct,getUsers,allUsers, getOrder,allOrders} = useContext(DashContext);
+
+
 
     useEffect(()=>{
         getProduct();
         getUsers();
+        getOrder();
     },[]);
 
     return (
@@ -38,7 +42,7 @@ const Main = () => {
                                 </div>
                                 <div>
                                     <h5>Orders</h5>
-                                    <h3>58</h3>
+                                    <h3>{allOrders.length} </h3>
                                 </div>
                             </div>
                         </div>
@@ -72,51 +76,80 @@ const Main = () => {
                     <div className="table-section mt-5">
                         <div className="d-flex justify-content-between align-items-center mb-3">
                             <h4 className="mb-0">Recent Orders</h4>
-                            <button className="btn btn-primary btn-sm">
+                            <Link to='/dashboard/orders' className="btn btn-primary btn-sm">
                                 View All
-                            </button>
+                            </Link>
                         </div>
 
                         <div className="table-responsive">
                             <table className="table align-middle">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
+
+                                        <th>Order ID</th>
                                         <th>Customer</th>
-                                        <th>Amount</th>
-                                        <th>Status</th>
                                         <th>Date</th>
+                                        <th>Total</th>
+                                        <th>Payment method</th>
+                                        <th>delivery method</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+
                                     </tr>
+
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>#1025</td>
-                                        <td>John Smith</td>
-                                        <td>$240</td>
-                                        <td>
-                                            <span className="badge bg-success">Delivered</span>
-                                        </td>
-                                        <td>10 Jul 2026</td>
-                                    </tr>
-                                    <tr>
-                                        <td>#1024</td>
-                                        <td>David Lee</td>
-                                        <td>$90</td>
-                                        <td>
-                                            <span className="badge bg-warning text-dark">Pending</span>
-                                        </td>
-                                        <td>10 Jul 2026</td>
-                                    </tr>
-                                    <tr>
-                                        <td>#1023</td>
-                                        <td>Emma Watson</td>
-                                        <td>$310</td>
-                                        <td>
-                                            <span className="badge bg-primary">Processing</span>
-                                        </td>
-                                        <td>09 Jul 2026</td>
-                                    </tr>
-                                </tbody>
+                                {allOrders.slice(0,3).map((order)=>(
+                                    <tbody>
+
+                                        <tr>
+
+                                            <td>#{order.id} </td>
+
+                                            <td>{order.username} </td>
+
+                                            <td>{order.created_at}</td>
+
+                                            <td>${order.total_amount} </td>
+
+                                            <td>
+                                                {order.payment_method == 'COD' ? (
+                                                <span className="badge bg-success">
+                                                    COD
+                                                </span>
+                                                ) : (
+                                                    <span className="badge bg-danger">
+                                                        ONLINE
+                                                    </span>
+                                                )}
+                                                
+                                            </td>
+
+                                            <td> {order.delivery_method}</td>
+
+                                            <td>
+                                                <span className="badge bg-primary">
+                                                    {order.status}
+                                                </span>
+                                            </td>
+
+                            
+
+                                            <td>
+
+                                                <button className="btn btn-sm btn-info">
+                                                    <i className="bi bi-eye"></i>
+                                                </button>
+
+                                                <button className="btn btn-sm btn-warning">
+                                                    <i className="bi bi-pencil-square"></i>
+                                                </button>
+
+                                            </td>
+
+                                        </tr>
+
+                                    </tbody>
+                                ))}
                             </table>
                         </div>
                     </div>
