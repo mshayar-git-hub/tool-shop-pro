@@ -28,6 +28,18 @@ const AuthProvider = ({children}) => {
         }
     }
 
+    const updateUser = async(userData) =>{
+        setLoading(true);
+        try{
+            const res = await api.patch('/user/',userData)
+            setUser(res.data);
+        }catch(error){
+            console.log("error-> ",error);
+        }finally{
+            setLoading(false)
+        }
+    }
+
     const getAddress = async() => {
         try{
             const res = await api.get("/address");
@@ -50,7 +62,7 @@ const AuthProvider = ({children}) => {
 
   return (
     <>
-      <AuthContext.Provider value={{isLoggedIn,setIsLoggedIn,user,setUser,isSuperUser,loading,loadUser,getAddress,address}}>
+      <AuthContext.Provider value={{isLoggedIn,setIsLoggedIn,user,setUser,isSuperUser,loading,loadUser,getAddress,address, updateUser}}>
         {children}
       </AuthContext.Provider>
     </>
