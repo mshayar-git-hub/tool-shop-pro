@@ -11,7 +11,15 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class ProductSerializer(serializers.ModelSerializer):
+    # For GET (read)
     category = CategorySerializer(read_only=True)
+
+    # For POST/PATCH (write)
+    category_id = serializers.PrimaryKeyRelatedField(
+        queryset=Category.objects.all(),
+        source="category",
+        write_only=True
+    )
     class Meta:
         model = Product
         fields = '__all__'

@@ -239,3 +239,27 @@ body{
     object-fit: cover;
     border-radius: 8px;
 }
+
+
+/* ===========================
+   Add Product Page
+=========================== */
+
+.bv-card{
+    background:#fff;
+    border-radius:12px;
+    padding:25px;
+    box-shadow:0 2px 12px rgba(0,0,0,.06);
+}
+
+.image-preview-box{
+    margin-top:10px;
+}
+
+.image-preview-box img{
+    width:180px;
+    height:180px;
+    object-fit:cover;
+    border-radius:10px;
+    border:1px solid #dee2e6;
+}

@@ -15,17 +15,55 @@ class Category_generic(generics.ListAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
-class Product_generic(generics.ListAPIView):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
+# class Product_generic(generics.ListAPIView):
+#     queryset = Product.objects.all()
+#     serializer_class = ProductSerializer
 
-class Single_Product_generic(generics.RetrieveAPIView):
-    try:
-        queryset = Product.objects.all()
-        serializer_class = ProductSerializer
-        lookup_field = "pk"
-    except Product.DoesNotExist:
-        Response ({'error':'not exist'}, status=404 )
+class Product_generic(APIView):
+    def get(self,request):
+        try:
+            product = Product.objects.all()
+            serializer = ProductSerializer(product, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except:
+            return Response({"message":"something went wrong"},status=status.HTTP_400_BAD_REQUEST)
+        
+    def post(self,request):
+        try:
+            serializer = ProductSerializer( data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            else:
+                print(serializer.errors)
+                return Response({'message':"invalid data"},status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            print(serializer.errors)
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+        
+
+
+class Single_Product_generic(APIView):
+    def get(self,request,pk):
+        try:
+            product = Product.objects.get(id=pk)
+            serializer = ProductSerializer(product)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except:
+            return Response({"message":"something went wrong"},status=status.HTTP_400_BAD_REQUEST)
+
+    def patch(self,request,pk):
+        try:
+            product = Product.objects.get(id=pk)
+            serializer = ProductSerializer(product, data=request.data, partial=True)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            else:
+                return Response({'message':"invalid data"},status=status.HTTP_400_BAD_REQUEST)
+        except:
+            return Response({'message':"something went wrong"},status=status.HTTP_400_BAD_REQUEST)
 
 class get_cart_generic(generics.RetrieveAPIView):
     permission_classes = [IsAuthenticated]

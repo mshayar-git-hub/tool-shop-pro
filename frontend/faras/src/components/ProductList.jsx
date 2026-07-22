@@ -2,23 +2,18 @@ import React, { useState, useEffect, useContext } from 'react'
 import api from "./api/api";
 import { Link, useNavigate } from 'react-router-dom';
 import { CartContext } from '../context/CartContext';
+import { DashContext } from '../context/DashContext';
 
 const ProductList = () => {
-    const [product, setProduct] = useState([]);
     const {addToCart} = useContext(CartContext)
+    const {product,getProduct} = useContext(DashContext);
     const navigate = useNavigate();
 
-    useEffect(
-        () => {
-            api.get('products/')
-                .then((response) => {
-                    setProduct(response.data);
-                })
-                .catch((error) => {
-                    console.log("error");
-                })
-        }, []
-    );
+
+    useEffect(() => {
+            getProduct();
+        }, [] );
+
 
 
     const handleAddToCart = (product) =>{

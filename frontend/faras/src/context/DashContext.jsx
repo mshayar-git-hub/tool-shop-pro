@@ -19,6 +19,15 @@ const DashProvider = ({children}) => {
     }
   }
 
+  const postProduct = async(productData)=>{
+    try{
+      const res = await api.post('/products/', productData)
+      getProduct();
+    }catch(error){
+      console.log("error-->",error);
+    }
+  }
+
   const getCategory = async() =>{
     try{
       const res = await api.get('/categories/');
@@ -48,7 +57,7 @@ const DashProvider = ({children}) => {
 
   return (
     <>
-      <DashContext.Provider value={{product, getProduct , getCategory,category , getUsers,allUsers ,getOrder,allOrders}}>
+      <DashContext.Provider value={{product, setProduct, getProduct, postProduct , getCategory,category , getUsers,allUsers ,getOrder,allOrders}}>
         {children}
       </DashContext.Provider>
     </>

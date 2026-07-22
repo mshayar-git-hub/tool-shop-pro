@@ -1,5 +1,6 @@
 import React,{useContext, useEffect } from 'react'
 import { DashContext } from '../../context/DashContext'
+import { Link } from 'react-router-dom';
 
 const Products = () => {
     const {product,getProduct , category , getCategory } = useContext(DashContext);
@@ -21,10 +22,10 @@ const Products = () => {
 
                             <h2 className="mb-0">Products</h2>
 
-                            <button className="btn btn-primary">
+                            <Link to='/dashboard/products/add' className="btn btn-primary">
                                 <i className="bi bi-plus-circle"></i>
                                 Add Product
-                            </button>
+                            </Link>
 
                         </div>
 
@@ -105,8 +106,6 @@ const Products = () => {
 
                                         <td>${product.price}</td>
 
-                                        <td> XXX </td>
-
                                             <td>
                                                 {product.in_stock ? (
                                                     <span className="badge bg-success">
@@ -120,6 +119,18 @@ const Products = () => {
 
                                             </td>
 
+                                            <td>
+                                                {product.trending ? (
+                                                    <span className="badge bg-primary">
+                                                        Trending
+                                                    </span>
+                                                ) : (
+                                                    <span className="badge bg-secondary">
+                                                        No
+                                                    </span>
+                                                )}
+
+                                            </td>
                                         <td>
 
                                             <button className="btn btn-sm btn-info">

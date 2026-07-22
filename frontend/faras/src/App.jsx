@@ -16,6 +16,7 @@ import Profile from './components/dashboard/Profile';
 import Products from './components/dashboard/Products';
 import Orders from './components/dashboard/Orders';
 import Users from './components/dashboard/Users';
+import Pro_AddPro from './components/dashboard/Pro_AddPro';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -68,6 +69,7 @@ function App() {
             <Route path='products' element={<Products/>}/>
             <Route path='orders' element={<Orders/>}/>
             <Route path='users' element={<Users/>}/>
+            <Route path='products/add' element={<Pro_AddPro/>}/>
           </Route>
           </Route>
 
