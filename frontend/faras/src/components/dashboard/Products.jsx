@@ -132,18 +132,15 @@ const Products = () => {
 
                                             </td>
                                         <td>
+                                            <div className="d-flex gap-2">
+                                                <Link className="btn btn-sm btn-warning" to={`/dashboard/products/add/${product.id}`} >
+                                                    <i className="bi bi-pencil"></i>
+                                                </Link>
 
-                                            <button className="btn btn-sm btn-info">
-                                                <i className="bi bi-eye"></i>
-                                            </button>
-
-                                            <button className="btn btn-sm btn-warning">
-                                                <i className="bi bi-pencil"></i>
-                                            </button>
-
-                                            <button className="btn btn-sm btn-danger">
-                                                <i className="bi bi-trash"></i>
-                                            </button>
+                                                <button className="btn btn-sm btn-danger">
+                                                    <i className="bi bi-trash"></i>
+                                                </button>
+                                            </div>
 
                                         </td>
 

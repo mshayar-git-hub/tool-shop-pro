@@ -70,6 +70,7 @@ function App() {
             <Route path='orders' element={<Orders/>}/>
             <Route path='users' element={<Users/>}/>
             <Route path='products/add' element={<Pro_AddPro/>}/>
+            <Route path='products/add/:id' element={<Pro_AddPro/>}/>
           </Route>
           </Route>
 
