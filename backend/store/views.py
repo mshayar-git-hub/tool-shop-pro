@@ -65,6 +65,15 @@ class Single_Product_generic(APIView):
         except:
             return Response({'message':"something went wrong"},status=status.HTTP_400_BAD_REQUEST)
 
+    def delete(self,request,pk):
+        try:
+            product=Product.objects.get(id=pk)
+            product.delete()
+            return Response({"message":"product deleted succesfully!"},status=status.HTTP_200_OK)
+        except:
+            return Response({'message':"something went wrong"},status=status.HTTP_400_BAD_REQUEST)
+
+
 class get_cart_generic(generics.RetrieveAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = CartSerializer
@@ -245,6 +254,34 @@ class Show_order(APIView):
         order = Order.objects.all().order_by('-id')
         serializer = OrderSerializer(order,many=True)
         return Response(serializer.data ,status=status.HTTP_200_OK)
+
+class Show_order_single(APIView):
+    permission_classes=[IsAuthenticated]
+    def get(self,request,pk):
+        order = Order.objects.get(id=pk)
+        serializer = OrderSerializer(order)
+        return Response(serializer.data,status=status.HTTP_200_OK)
+
+    def patch(self, request,pk):
+        try:
+            order= Order.objects.get(id=pk)
+            serializer = OrderSerializer(order, data=request.data, partial=True)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            else:
+                return Response({"message":"something went wrong"},status=status.HTTP_400_BAD_REQUEST)
+        except:
+            return Response({"message":"something went wrong"},status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self,request,pk):
+        try:
+            order = Order.objects.get(id=pk)
+            order.delete()
+            return Response ({"message":"deleted successfully!"})
+        except:
+            return Response({"message":"something went wrong"},status=status.HTTP_400_BAD_REQUEST)
+        
     
 
 class register_view(APIView):

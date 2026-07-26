@@ -17,6 +17,8 @@ import Products from './components/dashboard/Products';
 import Orders from './components/dashboard/Orders';
 import Users from './components/dashboard/Users';
 import Pro_AddPro from './components/dashboard/Pro_AddPro';
+import Ord_ViewOrd from './components/dashboard/Ord_ViewOrd';
+import Ord_Edit from './components/dashboard/Ord_Edit';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -71,6 +73,8 @@ function App() {
             <Route path='users' element={<Users/>}/>
             <Route path='products/add' element={<Pro_AddPro/>}/>
             <Route path='products/add/:id' element={<Pro_AddPro/>}/>
+            <Route path='orders/:id' element={<Ord_ViewOrd/>}/>
+            <Route path='orders/edit/:id' element={<Ord_Edit/>}/>
           </Route>
           </Route>
 

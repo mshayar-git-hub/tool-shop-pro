@@ -263,3 +263,86 @@ body{
     border-radius:10px;
     border:1px solid #dee2e6;
 }
+
+
+.order_details_12{
+    font-family: "Poppins", sans-serif;
+}
+
+.order_card_12{
+    border-radius:12px;
+}
+
+.order_card_12 .card-header{
+    padding:14px 20px;
+}
+
+.order_card_12 .card-body{
+    padding:22px;
+}
+
+.order_img_12{
+    width:70px;
+    height:70px;
+    object-fit:cover;
+    border:1px solid #ddd;
+}
+
+.order_details_12 table th{
+    white-space:nowrap;
+    font-weight:600;
+}
+
+.order_details_12 table td{
+    vertical-align:middle;
+}
+
+.order_details_12 .badge{
+    font-size:.8rem;
+}
+
+.order_details_12 .card{
+    transition:.25s;
+}
+
+.order_details_12 .card:hover{
+    box-shadow:0 .5rem 1rem rgba(0,0,0,.12);
+}
+
+
+.edit_order_23{
+    font-family: "Poppins", sans-serif;
+}
+
+.edit_order_card_23{
+    border-radius: 12px;
+}
+
+.edit_order_card_23 .card-header{
+    padding: 14px 20px;
+}
+
+.edit_order_card_23 .card-body{
+    padding: 30px;
+}
+
+.edit_order_23 label{
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.edit_order_23 .form-control,
+.edit_order_23 .form-select{
+    height: 48px;
+    border-radius: 8px;
+}
+
+.edit_order_23 .form-control:disabled{
+    background: #f8f9fa;
+    color: #495057;
+    opacity: 1;
+}
+
+.edit_order_23 .btn{
+    min-width: 150px;
+}

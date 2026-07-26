@@ -3,7 +3,7 @@ import { DashContext } from '../../context/DashContext'
 import { Link } from 'react-router-dom';
 
 const Products = () => {
-    const {product,getProduct , category , getCategory } = useContext(DashContext);
+    const {product,getProduct, deleteProduct , category , getCategory } = useContext(DashContext);
 
     useEffect(()=>{
         getProduct();
@@ -137,7 +137,7 @@ const Products = () => {
                                                     <i className="bi bi-pencil"></i>
                                                 </Link>
 
-                                                <button className="btn btn-sm btn-danger">
+                                                <button className="btn btn-sm btn-danger" onClick={()=>{if (window.confirm("Are you Sure want to delete this product?")){deleteProduct(product.id); } }}>
                                                     <i className="bi bi-trash"></i>
                                                 </button>
                                             </div>

@@ -52,6 +52,10 @@ class OrderItemSerializer(serializers.ModelSerializer):
 
 class OrderSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source="user_profile.user.username", read_only=True)
+    country = serializers.CharField(source='address.country',read_only=True)
+    area = serializers.CharField(source='address.area',read_only=True)
+    block_street = serializers.CharField(source='address.block_street',read_only=True)
+    building_floor = serializers.CharField(source='address.building_floor',read_only=True)
     items = OrderItemSerializer(many=True, read_only=True)
 
     class Meta:

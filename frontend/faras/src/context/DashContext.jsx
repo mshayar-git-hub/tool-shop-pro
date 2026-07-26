@@ -12,6 +12,7 @@ const DashProvider = ({children}) => {
   const [category, setCategory] = useState([]);
   const [allUsers, setAllUsers] = useState([]);
   const [allOrders,setAllOrders] = useState([]);
+  const [singleOrder, setSingleOrder] = useState([]);
 
   const getProduct = async() =>{
     try{
@@ -49,6 +50,15 @@ const DashProvider = ({children}) => {
     }
   }
 
+  const deleteProduct = async (id)=>{
+    try{
+      await api.delete(`/products/${id}/`)
+      getProduct();
+    }catch(err){
+      console.log("error: ",err);
+    }
+  }
+
   const getCategory = async() =>{
     try{
       const res = await api.get('/categories/');
@@ -76,9 +86,36 @@ const DashProvider = ({children}) => {
     }
   }
 
+  const getSingleOrder = async(id) =>{
+    try{
+      const res = await api.get(`/orders/show/${id}/`)
+      setSingleOrder(res.data);
+    }catch(err){
+      console.log("error: ",err);
+    }
+  }
+
+  const patchSingleOrder = async(id,data)=>{
+    try{
+      const res = await api.patch(`/orders/show/${id}/`,data)
+      getSingleOrder(id);
+    }catch(err){
+      console.log("error: ",err);
+    }
+  }
+
+  const deleteOrder = async(id)=>{
+    try{
+      const res = await api.delete(`/orders/show/${id}/`)
+      getOrder();
+    }catch(err){
+      console.log("error: ",err);
+    }
+  }
+
   return (
     <>
-      <DashContext.Provider value={{product, setProduct, getProduct, postProduct , singleProduct , patchSingleProduct , getSingleProduct,  getCategory,category , getUsers,allUsers ,getOrder,allOrders}}>
+      <DashContext.Provider value={{product, setProduct, getProduct, postProduct , singleProduct , patchSingleProduct, deleteProduct , getSingleProduct,  getCategory,category , getUsers,allUsers ,getOrder,allOrders , getSingleOrder , singleOrder ,patchSingleOrder , deleteOrder }}>
         {children}
       </DashContext.Provider>
     </>

@@ -64,7 +64,7 @@ const Pro_AddPro = () => {
             data.append("image", formData.image);
         }
         if (id){
-            patchSingleProduct(id,formData);
+            patchSingleProduct(id,data);
             alert("product changed successfully!");
             navigate("/dashboard/products")
         } else {
@@ -77,10 +77,25 @@ const Pro_AddPro = () => {
 
     useEffect(() => {
         getCategory();
+        
         if (id) {
             getSingleProduct(id);
         }
     }, [id])
+
+    useEffect(()=>{
+        if (singleProduct){
+            setFormData({
+                category_id: singleProduct.category?.id || "",
+                product_name: singleProduct.product_name || "",
+                description: singleProduct.description || "",
+                price: singleProduct.price || "",
+                trending: singleProduct.trending,
+                in_stock: singleProduct.in_stock,
+                image: null,
+            })
+        }
+    },[singleProduct])
 
 
     return (
@@ -242,7 +257,7 @@ const Pro_AddPro = () => {
                                                     type="checkbox"
                                                     id="stock"
                                                     name="in_stock"
-                                                    checked={singleProduct.in_stock}
+                                                    checked={formData.in_stock}
                                                     onChange={handleChange}
                                                 />
 
@@ -260,7 +275,7 @@ const Pro_AddPro = () => {
                                                     type="checkbox"
                                                     id="trending"
                                                     name="trending"
-                                                    checked={singleProduct.trending}
+                                                    checked={formData.trending}
                                                     onChange={handleChange}
                                                 />
 

@@ -1,9 +1,10 @@
 import React, {useState,useContext, useEffect} from 'react'
 import { DashContext } from '../../context/DashContext'
+import { Link } from 'react-router-dom';
 
 const Orders = () => {
 
-    const {getOrder,allOrders } = useContext(DashContext);
+    const {getOrder,allOrders , deleteOrder} = useContext(DashContext);
 
     useEffect(()=>{
         getOrder();
@@ -123,14 +124,19 @@ const Orders = () => {
                             
 
                                             <td>
+                                                <div className="d-flex gap-2">
+                                                    <Link className="btn btn-sm btn-info" to={`/dashboard/orders/${order.id}`}>
+                                                        <i className="bi bi-eye"></i>
+                                                    </Link>
 
-                                                <button className="btn btn-sm btn-info">
-                                                    <i className="bi bi-eye"></i>
-                                                </button>
+                                                    <Link className="btn btn-sm btn-warning" to={`/dashboard/orders/edit/${order.id}`}>
+                                                        <i className="bi bi-pencil-square"></i>
+                                                    </Link>
 
-                                                <button className="btn btn-sm btn-warning">
-                                                    <i className="bi bi-pencil-square"></i>
-                                                </button>
+                                                    <button className="btn btn-sm btn-danger" onClick={()=>{if (window.confirm("Are you Sure want to delete this Order?")){deleteOrder(order.id); } }}>
+                                                        <i className="bi bi-trash"></i>
+                                                    </button>
+                                                </div>
 
                                             </td>
 
