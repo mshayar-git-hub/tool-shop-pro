@@ -281,6 +281,23 @@ class Show_order_single(APIView):
             return Response ({"message":"deleted successfully!"})
         except:
             return Response({"message":"something went wrong"},status=status.HTTP_400_BAD_REQUEST)
+
+    
+
+
+class Show_User_Orders(APIView):
+    permission_classes= [IsAuthenticated]
+    def get(self,request):
+        try:
+            order = Order.objects.filter(user_profile__user = request.user ).order_by('-created_at')
+            serializer = OrderSerializer(order, many=True)
+            return Response(serializer.data,status=status.HTTP_200_OK)
+        except:
+            return Response({"message":"something went wrong"},status=status.HTTP_400_BAD_REQUEST)
+
+
+
+    
         
     
 

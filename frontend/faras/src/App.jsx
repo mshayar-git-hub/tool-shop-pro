@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './App.css'
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import ProductPage from './pages/ProductPage';
 import CartPage from './pages/CartPage';
@@ -22,7 +22,8 @@ import Ord_Edit from './components/dashboard/Ord_Edit';
 import User_Edit from './components/dashboard/User_Edit';
 import AdminRouter from './components/router/AdminRouter';
 import SuperUser from './components/router/SuperUser';
-import OrderHistory from './components/OrderHistory';
+import OrderHistoryPage from './pages/OrderHistoryPage';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -30,19 +31,21 @@ function App() {
   return (
     <>
       <Router>
+        <ScrollToTop />
+        
         <Routes>
           <Route
             path="/"
-            element={<Home/>} />
+            element={<Home />} />
           <Route
             path='/products'
-            element={<ProductPage/>} />
+            element={<ProductPage />} />
 
-            
 
-            <Route
+
+          <Route
             path='/products/:id'
-            element={<SingleProductPage/>} />
+            element={<SingleProductPage />} />
 
           <Route element={<PrivateRouter />}>
             <Route
@@ -54,42 +57,42 @@ function App() {
               element={<CartPage />} />
           </Route>
 
-            <Route
-            path='/login'
-            element={<LoginPage/>}/>
-
-            <Route
-            path='/register'
-            element={<SignupPage/>}/>
-
-            <Route 
-            path='/history/:id'
-            element={<OrderHistory/>}/>
-
-
-
-{/* ..........................DASHBOARD...................... */}
-          <Route element={<AdminRouter/>}>
           <Route
-            path='/dashboard'
-            element={<DashboardPage />}>
+            path='/login'
+            element={<LoginPage />} />
 
-            <Route index element={<Main />} />
-            <Route path='profile' element={<Profile />} />
-            <Route path='products' element={<Products/>}/>
-            <Route path='products/add' element={<Pro_AddPro/>}/>
-            <Route path='products/add/:id' element={<Pro_AddPro/>}/>
-            <Route path='orders' element={<Orders/>}/>
-            <Route path='orders/:id' element={<Ord_ViewOrd/>}/>
-            <Route path='orders/edit/:id' element={<Ord_Edit/>}/>
-            <Route element={<SuperUser/>}>
-              <Route path='users' element={<Users/>}/>
-              <Route path='users/:id' element={<User_Edit/>}/>
+          <Route
+            path='/register'
+            element={<SignupPage />} />
+
+          <Route
+            path='/history'
+            element={<OrderHistoryPage />} />
+
+
+
+          {/* ..........................DASHBOARD...................... */}
+          <Route element={<AdminRouter />}>
+            <Route
+              path='/dashboard'
+              element={<DashboardPage />}>
+
+              <Route index element={<Main />} />
+              <Route path='profile' element={<Profile />} />
+              <Route path='products' element={<Products />} />
+              <Route path='products/add' element={<Pro_AddPro />} />
+              <Route path='products/add/:id' element={<Pro_AddPro />} />
+              <Route path='orders' element={<Orders />} />
+              <Route path='orders/:id' element={<Ord_ViewOrd />} />
+              <Route path='orders/edit/:id' element={<Ord_Edit />} />
+              <Route element={<SuperUser />}>
+                <Route path='users' element={<Users />} />
+                <Route path='users/:id' element={<User_Edit />} />
+              </Route>
             </Route>
           </Route>
-          </Route>
 
-          
+
 
         </Routes>
       </Router>

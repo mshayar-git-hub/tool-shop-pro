@@ -119,7 +119,7 @@ const Navbar = () => {
                                     )}
                                     {user && (<>
                                         <Link
-                                            className="btn btn-outline-danger rounded-pill" to={`/history/${user.id}`}>
+                                            className="btn btn-outline-danger rounded-pill" to={`/history/`}>
                                             Order History
                                         </Link>
 

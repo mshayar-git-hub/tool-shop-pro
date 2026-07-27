@@ -116,9 +116,22 @@ const Orders = () => {
                                             <td> {order.delivery_method}</td>
 
                                             <td>
-                                                <span className="badge bg-primary">
-                                                    {order.status}
-                                                </span>
+                                                {order.status == 'pending' && (
+                                                    <span className="badge bg-secondary">
+                                                        {order.status}
+                                                    </span>
+                                                )}
+                                                {order.status == 'delivered' && (
+                                                    <span className="badge bg-primary">
+                                                        {order.status}
+                                                    </span>
+                                                )}
+                                                {order.status == 'cancelled' && (
+                                                    <span className="badge bg-danger">
+                                                        {order.status}
+                                                    </span>
+                                                )}
+                                                
                                             </td>
 
                             

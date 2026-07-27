@@ -51,7 +51,7 @@ const SingleProduct = () => {
                                 <div className="main-image">
                                     <img
                                         id="mainProductImage"
-                                        src={product.image}
+                                        src={`http://127.0.0.1:8000${product.image}`}
                                         className="img-fluid"
                                         alt={product.product_name} />
                                     <span className="zoom-badge">

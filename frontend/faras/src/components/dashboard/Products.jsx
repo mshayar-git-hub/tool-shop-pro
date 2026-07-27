@@ -94,7 +94,7 @@ const Products = () => {
 
                                             <td>
                                                 <img
-                                                    src={product.image}
+                                                    src={`http://127.0.0.1:8000${product.image}`}
                                                     className="product-img_D"
                                                     alt={product.product_name}
                                                 />

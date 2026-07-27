@@ -187,7 +187,7 @@ const Ord_ViewOrd = () => {
                                             <tr>
 
                                                 <td width="90">
-                                                    <img src={item.product?.image}
+                                                    <img src={`http://127.0.0.1:8000${item.product.image}`}
                                                         alt={item.product?.product_name}
                                                         className="img-fluid rounded order_img_12" />
                                                 </td>

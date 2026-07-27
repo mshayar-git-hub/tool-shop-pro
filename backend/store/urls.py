@@ -23,4 +23,5 @@ urlpatterns = [
     path('orders/create/',views.Create_order.as_view()),
     path('orders/show/',views.Show_order.as_view()),
     path('orders/show/<int:pk>/',views.Show_order_single.as_view()),
+    path('orders/show/user/',views.Show_User_Orders.as_view()),
 ]

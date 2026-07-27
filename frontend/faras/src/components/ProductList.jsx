@@ -15,7 +15,7 @@ const ProductList = () => {
         }, [] );
 
 
-
+console.log("image: ",product[0])
     const handleAddToCart = (product) =>{
         if(!localStorage.getItem("access_token")){
             navigate('/login');
@@ -77,7 +77,8 @@ const ProductList = () => {
                                         </button>
 
                                         <div className="product-image">
-                                            <img src={product.image} alt={product.product_name} />
+                                            <img src={`http://127.0.0.1:8000${product.image}`}
+                                            alt={product.product_name} />
                                         </div>
 
                                         <div className="product-info">
