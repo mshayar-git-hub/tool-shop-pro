@@ -212,7 +212,7 @@ const Ord_ViewOrd = () => {
                                                 </td>
 
                                                 <td className="fw-bold">
-                                                    {item.price} KD
+                                                    {item.price * item.quantity} KD
                                                 </td>
 
                                                 <td>

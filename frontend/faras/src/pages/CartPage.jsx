@@ -19,7 +19,7 @@ const CartPage = () => {
                         </div>
 
                         <div className="col-lg-4">
-                            <CartSummary tax={100} />
+                            <CartSummary tax={0} />
                         </div>
 
                     </div>

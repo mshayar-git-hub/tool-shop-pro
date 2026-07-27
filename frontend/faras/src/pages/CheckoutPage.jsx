@@ -9,7 +9,7 @@ const CheckoutPage = () => {
       <Navbar/>
       <br/>
       <br/>
-      <Checkout tax={100}/>
+      <Checkout tax={0}/>
       <Footer/>
     </>
   )
