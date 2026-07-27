@@ -19,6 +19,10 @@ import Users from './components/dashboard/Users';
 import Pro_AddPro from './components/dashboard/Pro_AddPro';
 import Ord_ViewOrd from './components/dashboard/Ord_ViewOrd';
 import Ord_Edit from './components/dashboard/Ord_Edit';
+import User_Edit from './components/dashboard/User_Edit';
+import AdminRouter from './components/router/AdminRouter';
+import SuperUser from './components/router/SuperUser';
+import OrderHistory from './components/OrderHistory';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -58,10 +62,14 @@ function App() {
             path='/register'
             element={<SignupPage/>}/>
 
+            <Route 
+            path='/history/:id'
+            element={<OrderHistory/>}/>
+
 
 
 {/* ..........................DASHBOARD...................... */}
-          <Route element={<PrivateRouter/>}>
+          <Route element={<AdminRouter/>}>
           <Route
             path='/dashboard'
             element={<DashboardPage />}>
@@ -69,12 +77,15 @@ function App() {
             <Route index element={<Main />} />
             <Route path='profile' element={<Profile />} />
             <Route path='products' element={<Products/>}/>
-            <Route path='orders' element={<Orders/>}/>
-            <Route path='users' element={<Users/>}/>
             <Route path='products/add' element={<Pro_AddPro/>}/>
             <Route path='products/add/:id' element={<Pro_AddPro/>}/>
+            <Route path='orders' element={<Orders/>}/>
             <Route path='orders/:id' element={<Ord_ViewOrd/>}/>
             <Route path='orders/edit/:id' element={<Ord_Edit/>}/>
+            <Route element={<SuperUser/>}>
+              <Route path='users' element={<Users/>}/>
+              <Route path='users/:id' element={<User_Edit/>}/>
+            </Route>
           </Route>
           </Route>
 

@@ -8,6 +8,7 @@ const AuthProvider = ({children}) => {
     const [isLoggedIn,setIsLoggedIn] = useState(!!localStorage.getItem('access_token'));
     const [user, setUser ] = useState(null);
     const [isSuperUser, setIsSuperUser] = useState(null);
+    const [isStaff, setIsStaff]= useState([]);
     const [loading, setLoading] = useState(false);
     const [address,setAddress] = useState([]);
 
@@ -17,6 +18,7 @@ const AuthProvider = ({children}) => {
             const res = await api.get('/user');
             setUser(res.data);
             setIsSuperUser(Boolean(res.data.is_superuser));
+            setIsStaff(Boolean(res.data.is_staff));
             setIsLoggedIn(true);
             console.log('yesss');
         }catch (error) {
@@ -62,7 +64,7 @@ const AuthProvider = ({children}) => {
 
   return (
     <>
-      <AuthContext.Provider value={{isLoggedIn,setIsLoggedIn,user,setUser,isSuperUser,loading,loadUser,getAddress,address, updateUser}}>
+      <AuthContext.Provider value={{isLoggedIn,setIsLoggedIn,user,setUser,isSuperUser, isStaff, loading,loadUser,getAddress,address, updateUser}}>
         {children}
       </AuthContext.Provider>
     </>

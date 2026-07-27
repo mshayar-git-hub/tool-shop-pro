@@ -4179,3 +4179,22 @@ body{
 .nav-actions .bi {
     font-size: 1.1rem;
 }
+
+
+.order-card56{
+    background:#fff;
+    border:1px solid #ececec;
+    border-radius:18px;
+    padding:25px;
+    margin-bottom:20px;
+    transition:.3s;
+}
+
+.order-card56:hover{
+    transform:translateY(-3px);
+    box-shadow:0 12px 30px rgba(0,0,0,.08);
+}
+
+.order-card56:last-child{
+    margin-bottom:0;
+}

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from rest_framework.response import Response
 from rest_framework import generics, status
 from user.models import Address, UserProfile
@@ -310,6 +310,33 @@ class User_view(APIView):
             serializer.save()
             return Response(serializer.data)    
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+class Single_User_view(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self,request,pk):
+        user = get_object_or_404(User, id=pk)
+        serializer = UserSerializer(user)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def patch(self,request,pk):
+        user = get_object_or_404(User, id=pk)
+        serializer = UserSerializer(user, data=request.data, partial=True)
+
+        if serializer.is_valid():
+            serializer.save()
+
+            phone_number = request.data.get("phone_number")
+            if phone_number is not None:
+                user.profile.phone_number = phone_number
+                user.profile.save()
+            return Response(serializer.data)    
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self,request,pk):
+        user = get_object_or_404(User,id=pk)
+        user.delete()
+        return Response ({"message":"deleted successfully!"})
 
     
 class All_User(APIView):

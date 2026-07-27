@@ -7,7 +7,7 @@ import { AuthContext } from '../context/AuthContext'
 const Navbar = () => {
     const { cartItems, clearCart } = useContext(CartContext);
     const navigate = useNavigate()
-    const { setIsLoggedIn, isLoggedIn, isSuperUser , user, setUser } = useContext(AuthContext);
+    const { setIsLoggedIn, isLoggedIn, isSuperUser, isStaff , user, setUser } = useContext(AuthContext);
 
     const handleLogout = () => {
         removeToken();
@@ -47,9 +47,9 @@ const Navbar = () => {
                                 <a className="nav-link" href="#">Categories</a>
                             </li>
 
-                            <li className="nav-item">
+                            {/* <li className="nav-item">
                                 <a className="nav-link" href="#">Brands</a>
-                            </li>
+                            </li> */}
 
                             <li className="nav-item">
                                 <button className="nav-link" href="#" onClick={() => {
@@ -109,7 +109,7 @@ const Navbar = () => {
                                 </>
                             ) : (
                                 <>
-                                    {isSuperUser && (
+                                    {(isSuperUser || isStaff) && (
                                         <Link
                                             to="/dashboard"
                                             className="btn btn-outline-warning rounded-pill"
@@ -117,12 +117,18 @@ const Navbar = () => {
                                             Dashboard
                                         </Link>
                                     )}
-                                    {user && (
+                                    {user && (<>
+                                        <Link
+                                            className="btn btn-outline-danger rounded-pill" to={`/history/${user.id}`}>
+                                            Order History
+                                        </Link>
+
                                         <Link
                                             className="btn btn-outline-warning rounded-pill"
                                         >
                                             {user.username}
                                         </Link>
+                                        </>
                                     )}
 
                                     <button

@@ -1,12 +1,16 @@
 import React, {useContext, useEffect} from 'react'
 import { DashContext } from '../../context/DashContext'
+import { Link , useParams} from 'react-router-dom';
 
 const Users = () => {
-    const {getUsers, allUsers} = useContext(DashContext);
+    const {getUsers, allUsers , deleteSingleUser} = useContext(DashContext);
+    const {id} = useParams();
 
     useEffect(()=>{
         getUsers();
     } , []);
+
+
 
   return (
     <>
@@ -20,10 +24,10 @@ const Users = () => {
 
                             <h2 className="mb-0">Users</h2>
 
-                            <button className="btn btn-primary">
+                            <Link className="btn btn-primary" to='/register'>
                                 <i className="bi bi-person-plus"></i>
                                 Add User
-                            </button>
+                            </Link>
 
                         </div>
 
@@ -129,15 +133,11 @@ const Users = () => {
 
                                         <td>
 
-                                            <button className="btn btn-sm btn-info">
-                                                <i className="bi bi-eye"></i>
-                                            </button>
-
-                                            <button className="btn btn-sm btn-warning">
+                                            <Link className="btn btn-sm btn-warning" to={`/dashboard/users/${users.id}`}>
                                                 <i className="bi bi-pencil"></i>
-                                            </button>
+                                            </Link>
 
-                                            <button className="btn btn-sm btn-danger">
+                                            <button className="btn btn-sm btn-danger" onClick={()=>{if(window.confirm("Are you sure wanted to delete this User?")){deleteSingleUser(users.id);}}}>
                                                 <i className="bi bi-trash"></i>
                                             </button>
 

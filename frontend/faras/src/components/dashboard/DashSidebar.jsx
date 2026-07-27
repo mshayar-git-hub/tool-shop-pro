@@ -6,7 +6,7 @@ import { AuthContext } from '../../context/AuthContext';
 
 const DashSidebar = () => {
     const { clearCart } = useContext(CartContext);
-    const { setIsLoggedIn } = useContext(AuthContext);
+    const { setIsLoggedIn , isSuperUser } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -43,10 +43,12 @@ const DashSidebar = () => {
                                     Orders
                                 </Link>
 
-                                <Link to='/dashboard/users'>
-                                    <i className="bi bi-people"></i>
-                                    Users
-                                </Link>
+                                {isSuperUser && (
+                                    <Link to='/dashboard/users'>
+                                        <i className="bi bi-people"></i>
+                                        Users
+                                    </Link>
+                                )}
 
                                 <hr/>
 
