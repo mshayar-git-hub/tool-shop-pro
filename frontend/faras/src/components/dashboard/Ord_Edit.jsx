@@ -35,6 +35,7 @@ const Ord_Edit = () => {
 
     return (
         <>
+        <div className="col-lg-9 col-xl-10">
         {singleOrder && (
             <div className="container py-4 edit_order_23">
 
@@ -165,12 +166,13 @@ const Ord_Edit = () => {
 
                             <div className="d-flex justify-content-end gap-2">
 
-                                <button
+                                <Link
                                     type="button"
+                                    to='/dashboard/orders'
                                     className="btn btn-outline-secondary"
                                 >
                                     Cancel
-                                </button>
+                                </Link>
 
                                 <button
                                     type="submit"
@@ -190,6 +192,7 @@ const Ord_Edit = () => {
 
             </div>
             )}
+            </div>
         </>
     )
 }

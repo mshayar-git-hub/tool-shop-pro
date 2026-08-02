@@ -1,5 +1,5 @@
 import React, { useState , useContext} from 'react' 
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import api from './api/api'
 import { saveToken } from '../utils/Auth';
 import { CartContext } from '../context/CartContext';
@@ -144,7 +144,7 @@ const Login = () => {
                                         </form>
 
                                         <p className="text-center mt-4 mb-0">Don't have an account?
-                                            <a href="signup.html" className="text-decoration-none fw-semibold">Sign Up</a>
+                                            <Link to='/register' className="text-decoration-none fw-semibold">Sign Up</Link>
                                         </p>
                                     </div>
                                 </div>

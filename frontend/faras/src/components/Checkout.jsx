@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { CartContext } from '../context/CartContext'
 import { AuthContext } from '../context/AuthContext'
@@ -48,6 +48,10 @@ const Checkout = (props) => {
             setMessage(error.response?.data?.error || "something went wrong")
         }
     }
+
+    useEffect(()=>{
+        getAddress();
+    },[])
 
 
     return (

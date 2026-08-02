@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { CartContext } from '../context/CartContext'
+import { Link } from 'react-router-dom';
 
 const Cart = () => {
   const { cartItems, RemoveFromCart, addToCart,UpdateCart } = useContext(CartContext);
@@ -95,12 +96,12 @@ const Cart = () => {
             </div>
 
             <div className="col-md-4 text-md-end mt-3 mt-md-0">
-              <a
-                href="products.html"
+              <Link
+                to='/products'
                 className="btn btn-outline-primary"
               >
                 Continue Shopping
-              </a>
+              </Link>
             </div>
           </div>
 

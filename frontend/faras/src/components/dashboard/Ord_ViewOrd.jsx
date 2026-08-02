@@ -15,6 +15,7 @@ const Ord_ViewOrd = () => {
 
     return (
         <>
+        <div className="col-lg-9 col-xl-10">
             {singleOrder && (
                 <div className="container py-4 order_details_12">
 
@@ -290,6 +291,7 @@ const Ord_ViewOrd = () => {
 
                 </div>
             )}
+            </div>
         </>
     )
 }

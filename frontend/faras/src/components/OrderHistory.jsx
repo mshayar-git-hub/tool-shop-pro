@@ -86,11 +86,11 @@ const OrderHistory = () => {
                 <>
                     <br/>
                     <br/>
-                    <h2 class="fw-bold">No Orders Yet</h2>
-                    <p class="text-muted">
+                    <h2 className="fw-bold">No Orders Yet</h2>
+                    <p className="text-muted">
                         You haven't placed any orders yet. Start shopping to see your order history here.
                     </p>
-                    <Link to='/products' class="btn btn-dark rounded-pill">
+                    <Link to='/products' className="btn btn-dark rounded-pill">
                         Start Shopping
                     </Link>
                     <br/>

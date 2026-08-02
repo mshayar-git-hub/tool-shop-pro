@@ -125,6 +125,7 @@ const Navbar = () => {
 
                                         <Link
                                             className="btn btn-outline-warning rounded-pill"
+                                            to='/user_profile'
                                         >
                                             {user.username}
                                         </Link>

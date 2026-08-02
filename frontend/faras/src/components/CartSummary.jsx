@@ -83,7 +83,7 @@ const CartSummary = (props) => {
                             </ul>
                         </div>
 
-                        <Link to='/' className="btn btn-outline-dark w-100 mt-3">Continue Shopping</Link>
+                        <Link to='/products' className="btn btn-outline-dark w-100 mt-3">Continue Shopping</Link>
 
                         <div className="payment-icons text-center mt-4">
                             <img src="images/payment.png" className="img-fluid" />

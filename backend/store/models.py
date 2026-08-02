@@ -41,15 +41,15 @@ class Product(models.Model):
 
 
 class Order (models.Model):
-    PAYMENT_CHOICE = {
+    PAYMENT_CHOICE = [
         ('COD','COD'),
         ('ONLINE','ONLINE'),
-    }
-    STATUS_CHOICE ={
+    ]
+    STATUS_CHOICE =[
         ('pending','Pending'),
         ('delivered','Delivered'),
         ('cancelled','Cancelled'),
-    }
+    ]
 
     user_profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE , blank=True , null=True)
     address = models.ForeignKey(Address, on_delete=models.CASCADE, blank=True , null=True)

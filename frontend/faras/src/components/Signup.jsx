@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import api from './api/api'
 import { saveToken } from '../utils/Auth';
 
@@ -179,10 +179,10 @@ const Signup = () => {
 
                                         <p className="text-center mt-4 mb-0">
                                             Already have an account?
-                                            <a href="login.html"
+                                            <Link to='/login'
                                                 className="text-decoration-none fw-semibold">
                                                 Login
-                                            </a>
+                                            </Link>
                                         </p>
                                     </div>
                                 </div>

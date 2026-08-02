@@ -24,6 +24,7 @@ import AdminRouter from './components/router/AdminRouter';
 import SuperUser from './components/router/SuperUser';
 import OrderHistoryPage from './pages/OrderHistoryPage';
 import ScrollToTop from './components/ScrollToTop';
+import ProfilePage from './pages/ProfilePage';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -55,6 +56,10 @@ function App() {
             <Route
               path='/cartPage'
               element={<CartPage />} />
+
+            <Route
+              path='/user_profile'
+              element={<ProfilePage/>}/>
           </Route>
 
           <Route

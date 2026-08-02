@@ -50,6 +50,7 @@ const User_Edit = () => {
 
     return (
         <>
+        <div className="col-lg-9 col-xl-10">
             {singleUser && (
 
                 <div className="container py-5">
@@ -226,6 +227,7 @@ const User_Edit = () => {
                 </div>
 
             )}
+            </div>
         </>
     )
 }
