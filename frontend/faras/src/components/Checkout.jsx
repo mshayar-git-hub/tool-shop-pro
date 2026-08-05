@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { CartContext } from '../context/CartContext'
 import { AuthContext } from '../context/AuthContext'
 import api from './api/api'
+import Loading from './Loading'
 
 
 const Checkout = (props) => {
@@ -11,7 +12,7 @@ const Checkout = (props) => {
     const {address,getAddress} = useContext(AuthContext)
     const navigate = useNavigate();
     const [message, setMessage] = useState("")
-    const [loading, setLoading] = useState(false)
+    const {loading,setLoading} = useContext(AuthContext);
 
     const { total, cartItems } = useContext(CartContext);
 
@@ -34,24 +35,32 @@ const Checkout = (props) => {
         setMessage("Loading")
         try {
             const res = await api.post('orders/create/', form);
-            setLoading(false)
             setMessage("Order Placed Successfully")
             clearCart();
             setTimeout(() => {
                 navigate("/");
-            }, 3000); 
+            }, 1500); 
         } catch (error) {
             console.log(error.response.data);
             console.log(error)
             console.log(error.response)
             setLoading(false)
             setMessage(error.response?.data?.error || "something went wrong")
+        }finally{
+            setLoading(false);
         }
     }
 
     useEffect(()=>{
         getAddress();
     },[])
+
+    if (loading) {
+        return (
+            <div className="col-lg-9 col-xl-10">
+                <div className="content-box">
+                    <Loading /></div></div>)
+    }
 
 
     return (

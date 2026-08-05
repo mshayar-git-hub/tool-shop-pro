@@ -3,16 +3,30 @@ import api from "./api/api";
 import { Link, useNavigate } from 'react-router-dom';
 import { CartContext } from '../context/CartContext';
 import { DashContext } from '../context/DashContext';
+import Loading from './Loading';
+import { AuthContext } from '../context/AuthContext';
 
 const ProductList = () => {
     const {addToCart} = useContext(CartContext)
     const {product,getProduct,category, setCategory, selectedCategory} = useContext(DashContext);
+    const {loading} = useContext(AuthContext);
     const navigate = useNavigate();
+    const [showLoader, setShowLoader] = useState(true);
 
 
     useEffect(() => {
             getProduct();
         }, [selectedCategory] );
+
+    useEffect(() => {
+        if (!loading) {
+            const timer = setTimeout(() => {
+                setShowLoader(false);
+            }, 200); // Keep loader visible for 1 second
+
+            return () => clearTimeout(timer);
+        }
+    }, [loading]);
 
 
 console.log("image: ",product[0])
@@ -24,6 +38,13 @@ console.log("image: ",product[0])
             addToCart(product);
             return;
         }
+    }
+
+    if (loading || showLoader) {
+        return (
+            <div className="col-lg-9 col-xl-10">
+                <div className="content-box">
+                    <Loading /></div></div>)
     }
 
 

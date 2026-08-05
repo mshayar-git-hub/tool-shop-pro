@@ -1,14 +1,24 @@
 import React, {useState,useContext, useEffect} from 'react'
 import { DashContext } from '../../context/DashContext'
 import { Link } from 'react-router-dom';
+import Loading from '../Loading';
+import { AuthContext } from '../../context/AuthContext';
 
 const Orders = () => {
 
     const {getOrder,allOrders , deleteOrder , selectedOrderStatus, setSelectedOrderStatus} = useContext(DashContext);
+    const {loading} = useContext(AuthContext);
 
     useEffect(()=>{
         getOrder();
     },[selectedOrderStatus]);
+
+    if (loading) {
+        return (
+            <div className="col-lg-9 col-xl-10">
+                <div className="content-box">
+                    <Loading /></div></div>)
+    }
 
   return (
     <>

@@ -1,6 +1,7 @@
 import React, {createContext,useState,useContext} from 'react'
 import api from "../components/api/api"
 import { useParams } from 'react-router-dom';
+import { AuthContext } from './AuthContext';
 
 const DashContext = createContext();
   
@@ -17,14 +18,18 @@ const DashProvider = ({children}) => {
   const [singleOrder, setSingleOrder] = useState([]);
   const [singleUserOrder, setSingleUserOrder] = useState([]);
   const [singleUser , setSingleUser] = useState([]);
+  const {loading,setLoading} = useContext(AuthContext);
 
 
   const getProduct = async() =>{
+    setLoading(true);
     try{
       const res = await api.get('/products/', { params : { category:selectedCategory ,},});
       setProduct(res.data);
     }catch(error){
       console.log(error);
+    }finally{
+      setLoading(false);
     }
   }
 
@@ -38,11 +43,15 @@ const DashProvider = ({children}) => {
   }
 
   const getSingleProduct = async (id)=>{
+    setLoading(true);
+    setSingleProduct(null);
     try{
       const res = await api.get(`products/${id}/`);
       setSingleProduct(res.data);
     }catch(err){
       console.log("error: ",err);
+    }finally{
+      setLoading(false);
     }
   }
 
@@ -65,38 +74,50 @@ const DashProvider = ({children}) => {
   }
 
   const getCategory = async() =>{
+    setLoading(true);
     try{
       const res = await api.get('/categories/');
       setCategory(res.data);
     }catch(error){
       console.log(error);
+    }finally{
+      setLoading(false);
     }
   }
 
   const getUsers = async() =>{
+    setLoading(true);
     try{
       const res = await api.get('/all_users/');
       setAllUsers(res.data);
     }catch(err){
       console.log(err);
+    }finally{
+      setLoading(false);
     }
   }
 
   const getOrder = async() => {
+    setLoading(true);
     try{
       const res= await api.get('/orders/show', {params : {status : selectedOrderStatus,},});
       setAllOrders(res.data);
     }catch(err){
       console.log("error: ", err)
+    }finally{
+      setLoading(false);
     }
   }
 
   const getSingleOrder = async(id) =>{
+    setLoading(true);
     try{
       const res = await api.get(`/orders/show/${id}/`)
       setSingleOrder(res.data);
     }catch(err){
       console.log("error: ",err);
+    }finally{
+      setLoading(false);
     }
   }
 
@@ -119,20 +140,26 @@ const DashProvider = ({children}) => {
   }
 
   const getSingleUserOrder = async()=>{
+    setLoading(true);
     try{
       const res = await api.get(`orders/show/user/`);
       setSingleUserOrder(res.data);
     }catch(err){
       console.log("error: ",err);
+    }finally{
+      setLoading(false);
     }
   }
 
   const loadSingleUser = async(id) =>{
+    setLoading(true);
     try{
       const res = await api.get(`/user/${id}/`);
       setSingleUser(res.data);
     }catch(err){
       console.log("error: ",err);
+    }finally{
+      setLoading(false);
     }
   }
 

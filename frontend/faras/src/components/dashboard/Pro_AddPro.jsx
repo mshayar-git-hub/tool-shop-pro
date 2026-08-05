@@ -1,6 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { DashContext } from '../../context/DashContext';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import Loading from '../Loading';
+import { AuthContext } from '../../context/AuthContext';
 
 
 const Pro_AddPro = () => {
@@ -8,6 +10,7 @@ const Pro_AddPro = () => {
     const navigate = useNavigate();
     const { id } = useParams();
     const [previewImage, setPreviewImage] = useState(null);
+    const {loading} = useContext(AuthContext);
     const { postProduct, patchSingleProduct ,category, getCategory, singleProduct, getSingleProduct } = useContext(DashContext);
     console.log(category);
     const [formData, setFormData] = useState({
@@ -82,6 +85,13 @@ const Pro_AddPro = () => {
             getSingleProduct(id);
         }
     }, [id])
+
+    if (loading) {
+        return (
+            <div className="col-lg-9 col-xl-10">
+                <div className="content-box">
+                    <Loading /></div></div>)
+    }
 
     useEffect(()=>{
         if (singleProduct){

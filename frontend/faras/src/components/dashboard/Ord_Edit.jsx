@@ -2,6 +2,8 @@ import React, { useState, useContext, useEffect } from 'react'
 import { DashContext } from '../../context/DashContext'
 import { useParams } from 'react-router-dom'
 import { useNavigate , Link } from 'react-router-dom'
+import Loading from '../Loading'
+import { AuthContext } from '../../context/AuthContext';
 
 const Ord_Edit = () => {
 
@@ -9,6 +11,7 @@ const Ord_Edit = () => {
     const { getSingleOrder, singleOrder, patchSingleOrder } = useContext(DashContext);
     const [status,setStatus]=useState("");
     const navigate = useNavigate();
+    const {loading} = useContext(AuthContext);
 
 
     const handleSubmit= async(e)=>{
@@ -29,6 +32,13 @@ const Ord_Edit = () => {
             setStatus(singleOrder.status);
         }
     }, [singleOrder]);
+
+    if (loading) {
+        return (
+            <div className="col-lg-9 col-xl-10">
+                <div className="content-box">
+                    <Loading /></div></div>)
+    }
 
 
 

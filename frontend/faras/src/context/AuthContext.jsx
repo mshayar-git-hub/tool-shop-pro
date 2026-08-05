@@ -13,7 +13,6 @@ const AuthProvider = ({children}) => {
     const [address,setAddress] = useState([]);
 
     const loadUser = async () =>{
-        setLoading(true);
         try{
             const res = await api.get('/user');
             setUser(res.data);
@@ -25,8 +24,6 @@ const AuthProvider = ({children}) => {
             setUser(null);
             setIsSuperUser(false);
             setIsLoggedIn(false);
-        }finally{
-            setLoading(false);
         }
     }
 
@@ -64,7 +61,7 @@ const AuthProvider = ({children}) => {
 
   return (
     <>
-      <AuthContext.Provider value={{isLoggedIn,setIsLoggedIn,user,setUser,isSuperUser, isStaff, loading,loadUser,getAddress,address, updateUser}}>
+      <AuthContext.Provider value={{isLoggedIn,setIsLoggedIn,user,setUser,isSuperUser, isStaff, loading, setLoading ,loadUser,getAddress,address, updateUser}}>
         {children}
       </AuthContext.Provider>
     </>

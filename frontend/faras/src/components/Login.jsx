@@ -8,7 +8,8 @@ import { AuthContext } from '../context/AuthContext';
 const Login = () => {
     const [msg, setMsg] = useState();
     const { fetchCart } = useContext(CartContext);
-    const {loadUser} = useContext(AuthContext);
+    const {loadUser, loading, setLoading} = useContext(AuthContext);
+    
     const [showPassword, setShowPassword] = useState(false);
     const [form, setForm] = useState({
         username: "",
@@ -22,17 +23,18 @@ const Login = () => {
     
     const handleSubmit = async (e)=>{
         e.preventDefault();
+        setLoading(true);
         try{
             const res = await api.post('token/',form)
             saveToken(res.data);
             await loadUser();
             await fetchCart();
             setMsg("Login Successfull. Redirecting...")
-            setTimeout(()=>{
-                navigate("/")
-            },1000);
+            navigate("/")
         }catch(error){
             setMsg("An error occured.Try again.")
+        }finally{
+            setLoading(false);
         }
     }
 
@@ -118,11 +120,19 @@ const Login = () => {
 
                                             {/* <!-- Button --> */}
                                             <div className="d-grid">
-                                                <button
-                                                    type="submit"
-                                                    className="btn btn-warning btn-lg fw-semibold">
-                                                    Login
-                                                </button>
+                                            <button
+                                                type="submit"
+                                                className="btn btn-warning btn-lg fw-semibold"
+                                                disabled={loading}>
+                                                {loading ? (<>
+                                                    Loading! Please Wait
+                                                </>) : (
+                                                    <>
+                                                        Login
+                                                    </>
+                                                )}
+
+                                            </button>
                                                 {msg && <p className='text-danger'>{msg}</p> }
 
                                             </div>

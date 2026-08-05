@@ -1,10 +1,13 @@
 import React,{useContext,useEffect} from 'react'
 import { DashContext } from '../../context/DashContext';
 import { Link } from 'react-router-dom'
+import { AuthContext } from '../../context/AuthContext';
+import Loading from '../Loading';
 
 const Main = () => {
 
     const {product,getProduct,getUsers,allUsers, getOrder,allOrders} = useContext(DashContext);
+    const {loading} = useContext(AuthContext);
 
 
 
@@ -13,6 +16,13 @@ const Main = () => {
         getUsers();
         getOrder();
     },[]);
+
+    if (loading) {
+        return (
+            <div className="col-lg-9 col-xl-10">
+                <div className="content-box">
+                    <Loading /></div></div>)
+    }
 
     return (
         <>

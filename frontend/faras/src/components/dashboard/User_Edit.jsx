@@ -1,10 +1,13 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { DashContext } from '../../context/DashContext'
 import { useParams , Link , useNavigate } from 'react-router-dom';
+import Loading from '../Loading';
+import { AuthContext } from '../../context/AuthContext';
 
 const User_Edit = () => {
 
     const { loadSingleUser, singleUser , updateSingleUser} = useContext(DashContext);
+    const {loading} = useContext(AuthContext);
     const { id } = useParams();
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
@@ -47,6 +50,13 @@ const User_Edit = () => {
             console.log("error: ",err);
         }
     };
+
+    if (loading) {
+        return (
+            <div className="col-lg-9 col-xl-10">
+                <div className="content-box">
+                    <Loading /></div></div>)
+    }
 
     return (
         <>

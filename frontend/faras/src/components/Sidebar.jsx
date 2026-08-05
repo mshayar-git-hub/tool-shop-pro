@@ -1,11 +1,14 @@
 import React, { useEffect, useState, useContext } from 'react'
 import api from './api/api';
 import { DashContext } from '../context/DashContext';
+import { AuthContext } from '../context/AuthContext';
+import Loading from './Loading';
 
 const Sidebar = () => {
 
     // const [category, setCategory] = useState([]);
     const {getCategory, setSelectedCategory , category, selectedCategory, clearFilter} = useContext(DashContext);
+    const {loading} = useContext(AuthContext);
     
 
     useEffect(
@@ -13,6 +16,13 @@ const Sidebar = () => {
             getCategory();
         }, [selectedCategory]
     );
+
+    if (loading) {
+        return (
+            <div className="col-lg-9 col-xl-10">
+                <div className="content-box">
+                    <Loading /></div></div>)
+    }
 
     return (
         <>

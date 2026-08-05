@@ -1,11 +1,21 @@
 import React, { useContext } from 'react'
 import { CartContext } from '../context/CartContext'
 import { Link } from 'react-router-dom'
+import { AuthContext } from '../context/AuthContext';
+import Loading from './Loading';
 
 
 const CartSummary = (props) => {
 
     const { total, cartItems, RemoveFromCart, addToCart , UpdateCart } = useContext(CartContext);
+    const {loading} = useContext(AuthContext);
+
+    if (loading) {
+        return (
+            <div className="col-lg-9 col-xl-10">
+                <div className="content-box">
+                    <Loading /></div></div>)
+    }
 
     return (
         <>

@@ -2,6 +2,8 @@ import React, { useState, useEffect , useContext} from 'react'
 import { useParams,useNavigate } from 'react-router-dom';
 import api from './api/api';
 import { CartContext } from '../context/CartContext';
+import { DashContext } from '../context/DashContext';
+import Loading from './Loading';
 
 
 
@@ -12,6 +14,7 @@ const SingleProduct = () => {
     const {addToCart,UpdateCart} = useContext(CartContext)
     const [quantity,setQuantity] = useState(1)
     const navigate = useNavigate();
+    const {getSingleProduct , singleProduct , loading} = useContext(DashContext);
 
 
     const handleAddToCart = () =>{
@@ -25,20 +28,21 @@ const SingleProduct = () => {
     }
     
 
-    useEffect(
-        () => {
-            api.get(`products/${id}/`)
-                .then((response) => {
-                    setProduct(response.data);
-                })
-                .catch((error) => {
-                    console.log("error");
-                })
-        }, [id]
-    );
+    useEffect( () => {
+            getSingleProduct(id);
+        }, [id] );
+
+
+    if (loading || !singleProduct) {
+        return (
+            <div className="col-lg-9 col-xl-10">
+                <div className="content-box">
+                    <Loading /></div></div>)
+    }
 
     return (
         <>
+        
             <section className="product-details py-5">
                 <div className="container">
                     <div className="row g-5">
@@ -51,9 +55,9 @@ const SingleProduct = () => {
                                 <div className="main-image">
                                     <img
                                         id="mainProductImage"
-                                        src={`http://127.0.0.1:8000${product.image}`}
+                                        src={`http://127.0.0.1:8000${singleProduct.image}`}
                                         className="img-fluid"
-                                        alt={product.product_name} />
+                                        alt={singleProduct.product_name} />
                                     <span className="zoom-badge">
                                         <i className="bi bi-zoom-in"></i>
                                         Zoom
@@ -71,7 +75,7 @@ const SingleProduct = () => {
                                     Bosch Professional
                                 </span> */}
 
-                                <h1>{product.product_name}</h1>
+                                <h1>{singleProduct.product_name}</h1>
                                 <div className="product-rating">
                                     ★★★★★
                                     {/* <span>
@@ -81,7 +85,7 @@ const SingleProduct = () => {
                                     </span> */}
                                 </div>
                                 <div className="price-wrapper">
-                                    <h2>{product.price}</h2>
+                                    <h2>{singleProduct.price}</h2>
                                     {/* <del>
                                         $229
                                     </del> */}
@@ -89,7 +93,7 @@ const SingleProduct = () => {
                                         Save 20%
                                     </span> */}
                                 </div>
-                                <p className="product-short-desc">{product.description}</p>
+                                <p className="product-short-desc">{singleProduct.description}</p>
                                 <div className="product-meta">
                                     <div>
                                         {/* <strong>
@@ -100,7 +104,7 @@ const SingleProduct = () => {
                                         </span> */}
                                     </div>
                                     <div>
-                                        <strong>Category: {product.category?.cat_name}</strong>
+                                        <strong>Category: {singleProduct.category?.cat_name}</strong>
                                         {/* <span>
                                             Power Tools
                                         </span> */}

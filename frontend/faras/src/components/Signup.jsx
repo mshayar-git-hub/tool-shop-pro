@@ -1,12 +1,14 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import api from './api/api'
 import { saveToken } from '../utils/Auth';
+import { AuthContext } from '../context/AuthContext';
 
 const Signup = () => {
 
     const [msg, setMsg] = useState();
     const [showPassword, setShowPassword] = useState(false);
+    const {loading,setLoading} = useContext(AuthContext);
     const [form, setForm] = useState({
         username: "",
         email: "",
@@ -21,15 +23,18 @@ const Signup = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
         try {
             const res = await api.post('register/', form)
             saveToken(res.data);
             setMsg("Account Created. Redirecting...")
             setTimeout(() => {
                 navigate("/login")
-            }, 1000);
+            }, 500);
         } catch (error) {
             setMsg("An error occured.Try again.")
+        }finally{
+            setLoading(false);
         }
     }
 
@@ -156,7 +161,11 @@ const Signup = () => {
 
                                             {/* <!-- Button --> */}
                                             <div className="d-grid">
-                                                <button type="submit" className="btn btn-warning btn-lg fw-semibold">Create Account</button>
+                                                {loading ? (
+                                                    <button type="submit" className="btn btn-warning btn-lg fw-semibold" disabled>Loading! Please Wait....</button>
+                                                ):(
+                                                    <button type="submit" className="btn btn-warning btn-lg fw-semibold">Create Account</button>
+                                                )}
                                                 {msg && <p className='text-danger'>{msg}</p>}
                                             </div>
 

@@ -1,21 +1,24 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import api from "./api/api";
+import { DashContext } from '../context/DashContext';
+import Loading from './Loading';
+import { AuthContext } from '../context/AuthContext';
 
 const CatCard = () => {
 
-    const [category, setCategory] = useState([])
+    const {category , setCategory, getCategory} = useContext(DashContext);
+    const {loading} = useContext(AuthContext);
 
-    useEffect(
-        () => {
-            api.get('categories/')
-                .then((response) => {
-                    setCategory(response.data);
-                })
-                .catch((error) => {
-                    console.log("error");
-                })
-        }, []
-    );
+    useEffect( () => {
+            getCategory();
+        }, [] );
+
+    if (loading) {
+        return (
+            <div className="col-lg-9 col-xl-10">
+                <div className="content-box">
+                    <Loading /></div></div>)
+    }
 
 
     return (
