@@ -3,12 +3,12 @@ import { DashContext } from '../../context/DashContext'
 import { Link } from 'react-router-dom';
 
 const Products = () => {
-    const {product,getProduct, deleteProduct , category , getCategory } = useContext(DashContext);
+    const {product,getProduct, deleteProduct , category , getCategory, clearFilter, selectedCategory, setSelectedCategory } = useContext(DashContext);
 
     useEffect(()=>{
         getProduct();
         getCategory();
-    },[]);
+    },[selectedCategory]);
   return (
     <>
     
@@ -42,24 +42,26 @@ const Products = () => {
                             
                             <div className="col-lg-3">
 
-                                <select className="form-select">
+                                <select className="form-select"
+                                        value={selectedCategory}
+                                        onChange={(e)=> setSelectedCategory(e.target.value)}>
 
                                     <option>All Categories</option>
                                     {category.map((category) =>(
-                                    <option>{category.cat_name} </option>
+                                    <option key={category.id} value={category.id}>{category.cat_name} </option>
                                     ))}
                                 </select>
 
                             </div>
                             
 
-                            <div className="col-lg-3">
+                            {/* <div className="col-lg-3">
 
                                 <button className="btn btn-outline-primary w-100">
                                     Filter
                                 </button>
 
-                            </div>
+                            </div> */}
 
                         </div>
 

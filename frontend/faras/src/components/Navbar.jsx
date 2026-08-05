@@ -3,11 +3,13 @@ import { Link, useNavigate } from 'react-router-dom'
 import { CartContext } from '../context/CartContext'
 import { removeToken } from '../utils/Auth'
 import { AuthContext } from '../context/AuthContext'
+import { DashContext } from '../context/DashContext'
 
 const Navbar = () => {
     const { cartItems, clearCart } = useContext(CartContext);
     const navigate = useNavigate()
     const { setIsLoggedIn, isLoggedIn, isSuperUser, isStaff , user, setUser } = useContext(AuthContext);
+    const {clearFilter} = useContext(DashContext);
 
     const handleLogout = () => {
         removeToken();
@@ -40,7 +42,7 @@ const Navbar = () => {
                             </li>
 
                             <li className="nav-item">
-                                <Link className="nav-link" to="/products">Products</Link>
+                                <Link className="nav-link" to="/products" onClick={clearFilter}>Products</Link>
                             </li>
 
                             <li className="nav-item">

@@ -6,13 +6,13 @@ import { DashContext } from '../context/DashContext';
 
 const ProductList = () => {
     const {addToCart} = useContext(CartContext)
-    const {product,getProduct} = useContext(DashContext);
+    const {product,getProduct,category, setCategory, selectedCategory} = useContext(DashContext);
     const navigate = useNavigate();
 
 
     useEffect(() => {
             getProduct();
-        }, [] );
+        }, [selectedCategory] );
 
 
 console.log("image: ",product[0])

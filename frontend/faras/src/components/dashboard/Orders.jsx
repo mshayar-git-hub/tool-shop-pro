@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom';
 
 const Orders = () => {
 
-    const {getOrder,allOrders , deleteOrder} = useContext(DashContext);
+    const {getOrder,allOrders , deleteOrder , selectedOrderStatus, setSelectedOrderStatus} = useContext(DashContext);
 
     useEffect(()=>{
         getOrder();
-    },[]);
+    },[selectedOrderStatus]);
 
   return (
     <>
@@ -41,14 +41,14 @@ const Orders = () => {
 
                             <div className="col-lg-3">
 
-                                <select className="form-select">
+                                <select className="form-select"
+                                        value={selectedOrderStatus}
+                                        onChange={(e)=>setSelectedOrderStatus(e.target.value)}>
 
-                                    <option>All Orders</option>
-                                    <option>Pending</option>
-                                    <option>Processing</option>
-                                    <option>Shipped</option>
-                                    <option>Delivered</option>
-                                    <option>Cancelled</option>
+                                    <option value=''>All Orders</option>
+                                    <option value='pending'>Pending</option>
+                                    <option value='delivered'>Delivered</option>
+                                    <option value='cancelled'>Cancelled</option>
 
                                 </select>
 

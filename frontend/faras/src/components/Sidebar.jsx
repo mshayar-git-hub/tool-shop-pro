@@ -1,20 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import api from './api/api';
+import { DashContext } from '../context/DashContext';
 
 const Sidebar = () => {
 
-    const [category, setCategory] = useState([])
+    // const [category, setCategory] = useState([]);
+    const {getCategory, setSelectedCategory , category, selectedCategory, clearFilter} = useContext(DashContext);
+    
 
     useEffect(
         () => {
-            api.get('categories/')
-                .then((response) => {
-                    setCategory(response.data);
-                })
-                .catch((error) => {
-                    console.log("error");
-                })
-        }, []
+            getCategory();
+        }, [selectedCategory]
     );
 
     return (
@@ -42,16 +39,30 @@ const Sidebar = () => {
                         <ul>
                             {category.map((category) => (
                                 <li key={category.id}>
-                                    <input type="checkbox" /> {category.cat_name}
+                                    <input type="radio" 
+                                            name='category'
+                                            value = {category.id}
+                                            checked = {selectedCategory == category.id }
+                                            onChange={(e)=> setSelectedCategory(e.target.value)} /> 
+                                    {" "}
+                                    {category.cat_name}
                                 </li>
                             ))}
                         </ul>
 
                     </div>
+                    <button className="btn btn-outline-secondary w-100 mt-3" onClick={clearFilter}>
+                        <b>Clear Filters</b>
+                    </button>
 
                 </div>
 
+
             </div>
+
+
+
+            
 
         </>
     )

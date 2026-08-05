@@ -9,21 +9,23 @@ from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.contrib.auth.models import User
 from .serializers import RegisterSerializer, UserSerializer 
+from .filters import OrderFilter, ProductFilter
 
 # Create your views here.
 class Category_generic(generics.ListAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
-# class Product_generic(generics.ListAPIView):
-#     queryset = Product.objects.all()
-#     serializer_class = ProductSerializer
 
 class Product_generic(APIView):
     def get(self,request):
         try:
             product = Product.objects.all()
-            serializer = ProductSerializer(product, many=True)
+
+            # filters
+            product_filter = ProductFilter(request.GET, queryset=product)
+
+            serializer = ProductSerializer(product_filter.qs, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
         except:
             return Response({"message":"something went wrong"},status=status.HTTP_400_BAD_REQUEST)
@@ -252,7 +254,11 @@ class Show_order(APIView):
     permission_classes = [IsAuthenticated]
     def get(self,request):
         order = Order.objects.all().order_by('-id')
-        serializer = OrderSerializer(order,many=True)
+
+        # filter
+        order_filter = OrderFilter(request.GET , queryset=order)
+
+        serializer = OrderSerializer(order_filter.qs,many=True)
         return Response(serializer.data ,status=status.HTTP_200_OK)
 
 class Show_order_single(APIView):

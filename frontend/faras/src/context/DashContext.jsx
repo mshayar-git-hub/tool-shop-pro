@@ -10,8 +10,10 @@ const DashProvider = ({children}) => {
   const [singleProduct, setSingleProduct] = useState([]);
   const {id} = useParams();
   const [category, setCategory] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
   const [allUsers, setAllUsers] = useState([]);
   const [allOrders,setAllOrders] = useState([]);
+  const [selectedOrderStatus, setSelectedOrderStatus] = useState("");
   const [singleOrder, setSingleOrder] = useState([]);
   const [singleUserOrder, setSingleUserOrder] = useState([]);
   const [singleUser , setSingleUser] = useState([]);
@@ -19,7 +21,7 @@ const DashProvider = ({children}) => {
 
   const getProduct = async() =>{
     try{
-      const res = await api.get('/products/');
+      const res = await api.get('/products/', { params : { category:selectedCategory ,},});
       setProduct(res.data);
     }catch(error){
       console.log(error);
@@ -82,7 +84,7 @@ const DashProvider = ({children}) => {
 
   const getOrder = async() => {
     try{
-      const res= await api.get('/orders/show');
+      const res= await api.get('/orders/show', {params : {status : selectedOrderStatus,},});
       setAllOrders(res.data);
     }catch(err){
       console.log("error: ", err)
@@ -152,9 +154,45 @@ const DashProvider = ({children}) => {
     }
   }
 
+  const clearFilter= ()=>{
+    setSelectedCategory("");
+    setSelectedOrderStatus('');
+  }
+
   return (
     <>
-      <DashContext.Provider value={{product, setProduct, getProduct, postProduct , singleProduct , patchSingleProduct, deleteProduct , getSingleProduct,  getCategory,category , getUsers,allUsers ,getOrder,allOrders , getSingleOrder , singleOrder ,patchSingleOrder , deleteOrder , loadSingleUser,singleUser , updateSingleUser , deleteSingleUser , getSingleUserOrder , singleUserOrder}}>
+      <DashContext.Provider 
+      value={{product, 
+              setProduct, 
+              getProduct, 
+              postProduct , 
+              singleProduct , 
+              patchSingleProduct, 
+              deleteProduct , 
+              getSingleProduct,  
+              getCategory,
+              category, 
+              setCategory ,
+              selectedCategory, 
+              setSelectedCategory, 
+              getUsers,
+              allUsers ,
+              getOrder,
+              allOrders , 
+              selectedOrderStatus,
+              setSelectedOrderStatus,
+              getSingleOrder , 
+              singleOrder ,
+              patchSingleOrder , 
+              deleteOrder , 
+              loadSingleUser,
+              singleUser , 
+              updateSingleUser , 
+              deleteSingleUser , 
+              getSingleUserOrder , 
+              singleUserOrder,
+              clearFilter
+              }}>
         {children}
       </DashContext.Provider>
     </>

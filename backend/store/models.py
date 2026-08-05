@@ -28,15 +28,6 @@ class Product(models.Model):
         return self.product_name
     
 
-# class UserProfile(models.Model):
-#     user = models.OneToOneField(User, on_delete=models.CASCADE)
-#     phone_no = models.CharField(max_length=15)
-#     address = models.TextField(max_length=500)
-#     created_at = models.DateTimeField(auto_now_add=True)
-#     updated_at = models.DateTimeField(auto_now=True)
-
-#     def __str__(self):
-#         return self.user.username
     
 
 
