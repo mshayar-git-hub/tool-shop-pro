@@ -70,10 +70,11 @@ class OrderSerializer(serializers.ModelSerializer):
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only = True)
     password2 = serializers.CharField(write_only=True)
+    phone_number = serializers.CharField(write_only=True)
 
     class Meta:
         model = User
-        fields = ['username','email','password','password2']
+        fields = ['username', 'phone_number','email','password','password2']
 
     def validate(self,data):
         if data['password'] != data['password2'] :
@@ -81,12 +82,18 @@ class RegisterSerializer(serializers.ModelSerializer):
         return data
     
     def create(self, validated_data):
+        phone_number = validated_data.pop('phone_number')
         user = User.objects.create_user(
             username= validated_data['username'],
             email= validated_data['email'],
             password= validated_data['password']
         )
+        UserProfile.objects.create(
+            user=user,
+            phone_number = phone_number
+        )
         return user
+
     
 class AddressSerializer(serializers.ModelSerializer):
 

@@ -12,6 +12,7 @@ const Signup = () => {
     const [form, setForm] = useState({
         username: "",
         email: "",
+        phone_number:"",
         password: "",
         password2: ""
     })
@@ -87,6 +88,24 @@ const Signup = () => {
                                                         value={form.email}
                                                         onChange={handleChange}
                                                         placeholder="Enter your email" />
+                                                </div>
+                                            </div>
+
+                                            
+                                            {/* <!-- Phone NUmber --> */}
+                                            <div className="mb-3">
+                                                <label className="form-label fw-semibold">Phone Number</label>
+                                                <div className="input-group">
+                                                    <span className="input-group-text">
+                                                        <i className="bi bi-telephone"></i>
+                                                    </span>
+                                                    <input
+                                                        type="tel"
+                                                        className="form-control"
+                                                        name="phone_number"
+                                                        value={form.phone_number}
+                                                        onChange={handleChange}
+                                                        placeholder="Enter your Phone number" />
                                                 </div>
                                             </div>
 
