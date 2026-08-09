@@ -3,11 +3,13 @@ import { DashContext } from '../../context/DashContext'
 import { Link } from 'react-router-dom';
 import Loading from '../Loading';
 import { AuthContext } from '../../context/AuthContext';
+import { SearchContext } from '../../context/SearchContext';
 
 const Orders = () => {
 
     const {getOrder,allOrders , deleteOrder , selectedOrderStatus, setSelectedOrderStatus} = useContext(DashContext);
     const {loading} = useContext(AuthContext);
+    const {getSearchOrder, searchOrder, setSearchOrder } = useContext(SearchContext);
 
     useEffect(()=>{
         getOrder();
@@ -43,11 +45,15 @@ const Orders = () => {
 
                         <div className="row g-3 mb-4">
 
-                            <div className="col-lg-6">
-
-                                <input type="text" className="form-control" placeholder="Search Order ID or Customer"/>
-
+                            <form onSubmit={getSearchOrder}>
+                            <div className="col-lg-6 d-flex">
+                                <input type="text" 
+                                className="form-control" 
+                                value={searchOrder}
+                                onChange={(e) => setSearchOrder(e.target.value)}
+                                placeholder="Search Order by ID or User..."/>
                             </div>
+                            </form>
 
                             <div className="col-lg-3">
 

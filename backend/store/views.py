@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import get_object_or_404, render
 from rest_framework.response import Response
 from rest_framework import generics, status
@@ -20,7 +21,17 @@ class Category_generic(generics.ListAPIView):
 class Product_generic(APIView):
     def get(self,request):
         try:
+            # for Search bar
+            query = request.GET.get("q") 
+
             product = Product.objects.all()
+
+            if query:
+                product = product.filter(
+                    Q(product_name__icontains=query) |
+                    Q(description__icontains=query)
+                )
+
 
             # filters
             product_filter = ProductFilter(request.GET, queryset=product)
@@ -253,7 +264,17 @@ class Create_order(APIView):
 class Show_order(APIView):
     permission_classes = [IsAuthenticated]
     def get(self,request):
+        query = request.GET.get("q")
+
         order = Order.objects.all().order_by('-id')
+
+        if query:
+            filterss = Q(user_profile__user__username__icontains=query)
+
+            if query.isdigit():
+                filterss |= Q(id=int(query))
+
+            order = order.filter(filterss)
 
         # filter
         order_filter = OrderFilter(request.GET , queryset=order)
@@ -364,7 +385,14 @@ class Single_User_view(APIView):
     
 class All_User(APIView):
     def get(self, request):
+        query = request.GET.get("q")
         user = User.objects.all()
+        if query:
+            user = user.filter(
+                Q(username__icontains=query) |
+                Q(email__icontains=query)
+            )
+
         serializer = UserSerializer(user, many=True)
         return Response(serializer.data)
     

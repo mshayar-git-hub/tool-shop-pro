@@ -4,12 +4,15 @@ import { CartContext } from '../context/CartContext'
 import { removeToken } from '../utils/Auth'
 import { AuthContext } from '../context/AuthContext'
 import { DashContext } from '../context/DashContext'
+import { SearchContext } from '../context/SearchContext'
+
 
 const Navbar = () => {
     const { cartItems, clearCart } = useContext(CartContext);
     const navigate = useNavigate()
-    const { setIsLoggedIn, isLoggedIn, isSuperUser, isStaff , user, setUser } = useContext(AuthContext);
-    const {clearFilter} = useContext(DashContext);
+    const { setIsLoggedIn, isLoggedIn, isSuperUser, isStaff, user, setUser } = useContext(AuthContext);
+    const { search, setSearch, searchProduct } = useContext(SearchContext);
+    const { clearFilter } = useContext(DashContext);
 
     const handleLogout = () => {
         removeToken();
@@ -71,10 +74,24 @@ const Navbar = () => {
                         </ul>
 
                         <div className="nav-actions d-flex align-items-center gap-3">
+                            <form onSubmit={searchProduct} className="me-3">
+    <div className="input-group" style={{ width: "140px" }}>
+        <input
+            type="text"
+            className="form-control rounded-start-pill"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search products..."
+        />
 
-                            <button className="btn btn-link text-dark fs-5 p-0">
-                                <i className="bi bi-search"></i>
-                            </button>
+        <button
+            type="submit"
+            className="btn btn-warning rounded-end-pill px-3"
+        >
+            <i className="bi bi-search"></i>
+        </button>
+    </div>
+</form>
 
                             <button className="btn btn-link text-dark fs-5 p-0">
                                 <i className="bi bi-heart"></i>
@@ -131,7 +148,7 @@ const Navbar = () => {
                                         >
                                             {user.username}
                                         </Link>
-                                        </>
+                                    </>
                                     )}
 
                                     <button

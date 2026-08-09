@@ -3,10 +3,12 @@ import { DashContext } from '../../context/DashContext'
 import { Link } from 'react-router-dom';
 import Loading from '../Loading';
 import { AuthContext } from '../../context/AuthContext';
+import { SearchContext } from '../../context/SearchContext';
 
 const Products = () => {
     const {product,getProduct, deleteProduct , category , getCategory, clearFilter, selectedCategory, setSelectedCategory } = useContext(DashContext);
     const {loading} = useContext(AuthContext);
+    const {search, setSearch, searchProduct} = useContext(SearchContext);
 
     useEffect(()=>{
         getProduct();
@@ -43,12 +45,16 @@ const Products = () => {
                         {/* <!-- Filters --> */}
 
                         <div className="row g-3 mb-4">
-
-                            <div className="col-lg-6">
-
-                                <input type="text" className="form-control" placeholder="Search product..."/>
-
+                            <form onSubmit={searchProduct}>
+                            <div className="col-lg-6 d-flex">
+                                <input type="text" 
+                                className="form-control" 
+                                value={search}
+                                onChange={(e) => setSearch(e.target.value)}
+                                placeholder="Search product..."/>
                             </div>
+                            </form>
+                            
 
                             
                             <div className="col-lg-3">

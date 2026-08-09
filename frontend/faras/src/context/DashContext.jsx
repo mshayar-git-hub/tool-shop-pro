@@ -2,6 +2,7 @@ import React, {createContext,useState,useContext} from 'react'
 import api from "../components/api/api"
 import { useParams } from 'react-router-dom';
 import { AuthContext } from './AuthContext';
+import { SearchContext } from './SearchContext';
 
 const DashContext = createContext();
   
@@ -204,7 +205,9 @@ const DashProvider = ({children}) => {
               setSelectedCategory, 
               getUsers,
               allUsers ,
+              setAllUsers,
               getOrder,
+              setAllOrders,
               allOrders , 
               selectedOrderStatus,
               setSelectedOrderStatus,
