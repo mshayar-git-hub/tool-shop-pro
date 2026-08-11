@@ -60,7 +60,12 @@ function App() {
             <Route
               path='/user_profile'
               element={<ProfilePage/>}/>
+            
+
           </Route>
+
+          
+          
 
           <Route
             path='/login'

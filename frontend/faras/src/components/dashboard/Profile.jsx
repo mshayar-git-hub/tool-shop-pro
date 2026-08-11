@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { AuthContext } from '../../context/AuthContext'
+import { Link } from 'react-router-dom';
 
 const Profile = () => {
 
@@ -62,7 +63,10 @@ const Profile = () => {
 
                                     <button className="btn btn-primary mt-3" onClick={()=> alert("Edit profile on right side and click 'save changes' button.")}>
                                         Edit Profile
-                                    </button>
+                                    </button> <br/>
+                                    <Link className="btn btn-secondary mt-3" to='/user_profile/address'>
+                                        Add Address
+                                    </Link>
 
                                 </div>
                             </div>
@@ -163,10 +167,14 @@ const Profile = () => {
 
                                         <button className="btn btn-success mt-3" type='submit'>
                                             Save Changes
-                                        </button>
+                                        </button> <br/>
+                                        <Link className="btn btn-secondary mt-3" to='/user_profile/address'>
+                                            Add Address
+                                        </Link>
 
                                     </div>
                                 </form>
+                                
                             </div>
 
                         </div>
