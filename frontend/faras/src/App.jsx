@@ -25,6 +25,9 @@ import SuperUser from './components/router/SuperUser';
 import OrderHistoryPage from './pages/OrderHistoryPage';
 import ScrollToTop from './components/ScrollToTop';
 import ProfilePage from './pages/ProfilePage';
+import AddressPage from './pages/AddressPage';
+import AddAddressPage from './components/AddAddress';
+import EditAddress from './components/EditAddress';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -49,6 +52,7 @@ function App() {
             element={<SingleProductPage />} />
 
           <Route element={<PrivateRouter />}>
+
             <Route
               path='/cartPage/checkout'
               element={<CheckoutPage />} />
@@ -60,6 +64,18 @@ function App() {
             <Route
               path='/user_profile'
               element={<ProfilePage/>}/>
+
+            <Route
+              path='/user_profile/address'
+              element={<AddressPage/>}/>
+
+            <Route
+              path='/user_profile/address/add'
+              element={<AddAddressPage/>}/>
+
+            <Route
+              path='/user_profile/address/edit/:id'
+              element={<EditAddress/>}/>
             
 
           </Route>

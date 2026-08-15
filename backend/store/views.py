@@ -407,6 +407,30 @@ class AddressView(APIView):
         return Response(serializer.data)
 
     def post(self,request):
+        user_profile = UserProfile.objects.get(user=request.user)
         serializer = AddressSerializer(data=request.data)
         if serializer.is_valid():
+            serializer.save(user_profile = user_profile)
             return Response({'message':'address created Successfully.'},status=status.HTTP_201_CREATED)
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def patch (self, request, pk):
+        user_profile = UserProfile.objects.get(user=request.user)
+        address = Address.objects.get(user_profile = user_profile , id=pk)
+        serializer = AddressSerializer(address , data=request.data , partial=True)
+        if serializer.is_valid():
+            serializer.save(user_profile = user_profile)
+            return Response({'message':'address created Successfully.'},status=status.HTTP_201_CREATED)
+        print("error : ",serializer.errors)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self,request,pk):
+        try:
+            user_profile = UserProfile.objects.get(user=request.user)
+            address = Address.objects.get(user_profile=user_profile , id=pk)
+            address.delete()
+            return Response({"message":"Address deleted succesfully!"},status=status.HTTP_200_OK)
+        except:
+            return Response({'message':"something went wrong"},status=status.HTTP_400_BAD_REQUEST)
+ 

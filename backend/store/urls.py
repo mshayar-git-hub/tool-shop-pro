@@ -12,6 +12,7 @@ urlpatterns = [
     path('all_users/',views.All_User.as_view()),
     path('user/<int:pk>/',views.Single_User_view.as_view()),
     path('address/',views.AddressView.as_view()),
+    path('address/<int:pk>/',views.AddressView.as_view()),
 
     path('categories/',views.Category_generic.as_view()),
     path('products/',views.Product_generic.as_view()),

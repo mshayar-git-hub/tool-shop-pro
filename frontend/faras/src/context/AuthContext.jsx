@@ -48,6 +48,33 @@ const AuthProvider = ({children}) => {
         }
     }
 
+    const postAddress = async(AddressData)=>{
+        try{
+            const res = await api.post("/address/", AddressData);
+            getAddress();
+        }catch(error){
+            console.log("error= ",error)
+        }
+    }
+
+    const editAddress = async(id, AddressData) =>{
+        try{
+            const res = await api.patch(`/address/${id}/`, AddressData);
+            getAddress();
+        }catch(error){
+            console.log("error= ",error)
+        }
+    }
+
+    const deleteAddress = async(id)=>{
+        try{
+            const res = await api.delete(`/address/${id}/`)
+            getAddress();
+        }catch(error){
+            console.log("error= ",error)
+        }
+    }
+
     useEffect(()=>{
         if (localStorage.getItem("access_token")){
             loadUser();
@@ -61,7 +88,22 @@ const AuthProvider = ({children}) => {
 
   return (
     <>
-      <AuthContext.Provider value={{isLoggedIn,setIsLoggedIn,user,setUser,isSuperUser, isStaff, loading, setLoading ,loadUser,getAddress,address, updateUser}}>
+      <AuthContext.Provider value={{isLoggedIn,
+                                    setIsLoggedIn,
+                                    user,
+                                    setUser,
+                                    isSuperUser, 
+                                    isStaff, 
+                                    loading, 
+                                    setLoading ,
+                                    loadUser,
+                                    getAddress,
+                                    postAddress,
+                                    editAddress,
+                                    deleteAddress,
+                                    address, 
+                                    setAddress,
+                                    updateUser}}>
         {children}
       </AuthContext.Provider>
     </>
