@@ -3,6 +3,8 @@ import AddressCard from "../components/AddressCard"
 import Navbar from "../components/Navbar";
 import { AuthContext } from "../context/AuthContext";
 import { Link } from "react-router-dom";
+import WhyFaras from "../components/WhyFaras";
+import Footer from "../components/Footer";
 
 const AddressPage = () => {
 
@@ -39,6 +41,8 @@ const AddressPage = () => {
             </div>
 
         </div>
+        <WhyFaras/>
+        <Footer/>
         </>
     );
 };

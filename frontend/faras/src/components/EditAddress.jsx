@@ -2,11 +2,13 @@ import { useContext, useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate , useParams } from "react-router-dom";
+import Loading from "./Loading";
 
 const EditAddress = () => {
 
     const {address, editAddress,getAddress} = useContext(AuthContext);
     const {id} = useParams();
+    const {loading} = useContext(AuthContext);
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         building_floor: "",
@@ -29,6 +31,8 @@ const EditAddress = () => {
         navigate("/user_profile/address");
     };
 
+    
+
     useEffect(()=>{
         getAddress();
     },[])
@@ -43,6 +47,13 @@ const EditAddress = () => {
             });
         }
     }, [address]);
+
+    if (loading) {
+        return (
+            <div className="col-lg-9 col-xl-10">
+                <div className="content-box">
+                    <Loading /></div></div>)
+    }
 
 
     return (

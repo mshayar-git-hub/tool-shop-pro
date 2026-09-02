@@ -67,11 +67,14 @@ const AuthProvider = ({children}) => {
     }
 
     const deleteAddress = async(id)=>{
+        setLoading(true);
         try{
             const res = await api.delete(`/address/${id}/`)
             getAddress();
         }catch(error){
             console.log("error= ",error)
+        }finally{
+            setLoading(false);
         }
     }
 

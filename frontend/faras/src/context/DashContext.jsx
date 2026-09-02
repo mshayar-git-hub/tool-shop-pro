@@ -12,6 +12,7 @@ const DashProvider = ({children}) => {
   const [singleProduct, setSingleProduct] = useState([]);
   const {id} = useParams();
   const [category, setCategory] = useState([]);
+  const [singleCategory , setSingleCategory] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [allUsers, setAllUsers] = useState([]);
   const [allOrders,setAllOrders] = useState([]);
@@ -83,6 +84,46 @@ const DashProvider = ({children}) => {
       console.log(error);
     }finally{
       setLoading(false);
+    }
+  }
+
+  const postCategory = async(data)=>{
+    try{
+      const res = await api.post('/categories/',data);
+      getCategory();
+    }catch(error){
+      console.log("error--> ",error)
+    }
+  }
+
+  const editSingleCategory = async(data) => {
+    try{
+      const res = await api.patch(`/categories/${id}/`);
+      getCategory();
+    }catch(err){
+      console.log("error--> ",err)
+    }
+  }
+
+  const getSingleCategory = async(id) =>{
+    setLoading(true);
+    setSingleCategory(null);
+    try{
+      const res = await api.get(`/categories/${id}/`);
+      setSingleCategory(res.data);
+    }catch(err){
+      console.log("error: ",err);
+    }finally{
+      setLoading(false);
+    }
+  }
+
+  const deleteCategory = async(id) => {
+    try{
+      await api.delete(`/categories/${id}/`);
+      getCategory();
+    }catch(error){
+      console.log("error--> ",error)
     }
   }
 
@@ -201,6 +242,10 @@ const DashProvider = ({children}) => {
               getCategory,
               category, 
               setCategory ,
+              postCategory,
+              editSingleCategory,
+              getSingleCategory,
+              deleteCategory,
               selectedCategory, 
               setSelectedCategory, 
               getUsers,

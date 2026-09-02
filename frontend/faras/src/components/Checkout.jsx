@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { CartContext } from '../context/CartContext'
 import { AuthContext } from '../context/AuthContext'
 import api from './api/api'
@@ -126,6 +126,12 @@ const Checkout = (props) => {
                                                     </option>
                                                 ))}
                                             </select>
+                                            <Link
+                                                to="/user_profile/address/add"
+                                                className="btn btn-outline-primary btn-sm mt-2"
+                                            >
+                                                + Add Address
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>

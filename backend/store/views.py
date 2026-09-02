@@ -13,9 +13,51 @@ from .serializers import RegisterSerializer, UserSerializer
 from .filters import OrderFilter, ProductFilter
 
 # Create your views here.
-class Category_generic(generics.ListAPIView):
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializer
+# class Category_generic(generics.ListAPIView):
+#     queryset = Category.objects.all()
+#     serializer_class = CategorySerializer
+
+class Category_generic(APIView):
+    def get(self,request):
+        try:
+            category = Category.objects.all()
+            serializer = CategorySerializer(category, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except:
+            return Response({"message":"something went wrong"},status=status.HTTP_400_BAD_REQUEST)
+
+    def post(self,request):
+        try:
+            serializer = CategorySerializer( data = request.data )
+            if serializer.is_valid():
+                serializer.save()
+                return Response ({"message":"Created successfully!"}, status=status.HTTP_201_CREATED)
+        except:
+            return Response({"message":"something went wrong"},status=status.HTTP_400_BAD_REQUEST)
+
+    
+class Single_Category_generic(APIView):
+    def patch(self,request,pk):
+        try:
+            category = Category.objects.get(id=pk)
+            serializer = CategorySerializer(category, data=request.data, partial=True)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            else:
+                return Response({'message':"invalid data"},status=status.HTTP_400_BAD_REQUEST)
+        except:
+            return Response({'message':"something went wrong"},status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self,request,pk):
+        try:
+            category = Category.objects.get(id=pk)
+            category.delete()
+            return Response ({"message":"category deleted. "},status=status.HTTP_200_OK)
+        except:
+            return Response({"message":"something went wrong"},status=status.HTTP_400_BAD_REQUEST)
+    
+
 
 
 class Product_generic(APIView):

@@ -28,6 +28,9 @@ import ProfilePage from './pages/ProfilePage';
 import AddressPage from './pages/AddressPage';
 import AddAddressPage from './components/AddAddress';
 import EditAddress from './components/EditAddress';
+import Categories from './components/dashboard/Categories';
+import Cat_AddCat from './components/dashboard/Cat_AddCat';
+import Cat_edit from './components/dashboard/Cat_edit';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -106,6 +109,9 @@ function App() {
 
               <Route index element={<Main />} />
               <Route path='profile' element={<Profile />} />
+              <Route path='categories' element={<Categories/>}/>
+              <Route path='categories/add' element={<Cat_AddCat/>}/>
+              <Route path='categories/:id/' element={<Cat_edit/>}/>
               <Route path='products' element={<Products />} />
               <Route path='products/add' element={<Pro_AddPro />} />
               <Route path='products/add/:id' element={<Pro_AddPro />} />

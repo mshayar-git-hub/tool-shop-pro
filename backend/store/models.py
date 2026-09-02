@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from user.models import UserProfile, Address
+from django.utils.text import slugify
 
 # Create your models here.
 class Category(models.Model):
@@ -11,6 +12,12 @@ class Category(models.Model):
 
     def __str__(self):
         return self.cat_name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.cat_name)
+
+        super().save(*args, **kwargs)
     
 
 class Product(models.Model):

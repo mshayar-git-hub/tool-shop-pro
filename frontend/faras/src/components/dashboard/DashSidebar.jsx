@@ -33,6 +33,11 @@ const DashSidebar = () => {
                                     My Profile
                                 </Link>
 
+                                <Link to='/dashboard/categories'>
+                                    <i className="bi bi-grid"></i>
+                                    Categories
+                                </Link>
+
                                 <Link to='/dashboard/products'>
                                     <i className="bi bi-box-seam"></i>
                                     Products

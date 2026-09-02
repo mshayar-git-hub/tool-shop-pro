@@ -15,6 +15,7 @@ urlpatterns = [
     path('address/<int:pk>/',views.AddressView.as_view()),
 
     path('categories/',views.Category_generic.as_view()),
+    path('categories/<int:pk>/',views.Single_Category_generic.as_view()),
     path('products/',views.Product_generic.as_view()),
     path('products/<int:pk>/', views.Single_Product_generic.as_view()),
     path('cart/',views.get_cart_generic.as_view()),

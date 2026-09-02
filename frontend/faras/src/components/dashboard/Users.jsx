@@ -116,9 +116,9 @@ const Users = () => {
 
                                         <td>{users.email}</td>
 
-                                        <td>{users.profile.phone_number}</td>
+                                        <td>{users.profile?.phone_number}</td>
 
-                                        <td>{users.profile.created_at} </td>
+                                        <td>{users.profile?.created_at} </td>
 
                                         <td>
                                             {users.is_superuser ? (

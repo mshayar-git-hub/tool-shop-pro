@@ -86,12 +86,7 @@ const Pro_AddPro = () => {
         }
     }, [id])
 
-    if (loading) {
-        return (
-            <div className="col-lg-9 col-xl-10">
-                <div className="content-box">
-                    <Loading /></div></div>)
-    }
+    
 
     useEffect(()=>{
         if (singleProduct){
@@ -106,6 +101,14 @@ const Pro_AddPro = () => {
             })
         }
     },[singleProduct])
+
+
+    if (loading) {
+        return (
+            <div className="col-lg-9 col-xl-10">
+                <div className="content-box">
+                    <Loading /></div></div>)
+    }
 
 
     return (
