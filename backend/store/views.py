@@ -37,6 +37,14 @@ class Category_generic(APIView):
 
     
 class Single_Category_generic(APIView):
+    def get(self,request,pk):
+        try:
+            category = Category.objects.get(id=pk)
+            serializer = CategorySerializer(category)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except:
+            return Response({'message':"something went wrong"},status=status.HTTP_400_BAD_REQUEST)
+
     def patch(self,request,pk):
         try:
             category = Category.objects.get(id=pk)

@@ -96,9 +96,9 @@ const DashProvider = ({children}) => {
     }
   }
 
-  const editSingleCategory = async(data) => {
+  const editSingleCategory = async(id, data) => {
     try{
-      const res = await api.patch(`/categories/${id}/`);
+      const res = await api.patch(`/categories/${id}/`,data);
       getCategory();
     }catch(err){
       console.log("error--> ",err)
@@ -111,6 +111,7 @@ const DashProvider = ({children}) => {
     try{
       const res = await api.get(`/categories/${id}/`);
       setSingleCategory(res.data);
+      return res.data;
     }catch(err){
       console.log("error: ",err);
     }finally{
