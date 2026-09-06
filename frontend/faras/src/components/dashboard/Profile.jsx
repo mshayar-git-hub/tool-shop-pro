@@ -54,11 +54,9 @@ const Profile = () => {
                                     <h4 className="mt-3">{user.username}</h4>
 
                                     <p className="text-muted mb-1">
-                                        {user.is_superuser
-                                            ? "Super User"
-                                            : user.is_staff
-                                                ? "Staff"
-                                                : "Customer"}
+                                        {
+                                            user.profile.role
+                                        }
                                     </p>
 
                                     <button className="btn btn-primary mt-3" onClick={()=> alert("Edit profile on right side and click 'save changes' button.")}>

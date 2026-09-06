@@ -125,11 +125,18 @@ const Users = () => {
                                                 <span className="badge bg-primary">
                                                     Super User
                                                 </span>
-                                            ) : (
-                                                <span className="badge bg-primary">
-                                                    Staff
-                                                </span>
-                                            )}
+                                            ) : 
+                                                users.is_staff ? (
+                                                    <span className="badge bg-primary">
+                                                        Staff
+                                                    </span>
+                                                ):(
+                                                    <span className="badge bg-primary">
+                                                        Customer
+                                                    </span>
+                                                )
+                                                
+                                            }
 
 
                                         </td>

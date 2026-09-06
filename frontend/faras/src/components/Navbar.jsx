@@ -128,7 +128,7 @@ const Navbar = () => {
                                 </>
                             ) : (
                                 <>
-                                    {(isSuperUser || isStaff) && (
+                                    {(isSuperUser || user?.profile?.role === 'staff') && (
                                         <Link
                                             to="/dashboard"
                                             className="btn btn-outline-warning rounded-pill"

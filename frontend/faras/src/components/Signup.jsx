@@ -176,17 +176,40 @@ const Signup = () => {
                                                 <label className="form-check-label" for="terms">I agree to the
                                                     <a href="#" className="text-decoration-none">Terms & Conditions</a>
                                                 </label>
-                                            </div>
+                                        </div>
 
-                                            {/* <!-- Button --> */}
-                                            <div className="d-grid">
+                                       
+
+                                        {/* <!-- Button --> */}
+                                        <div className="d-grid">
                                                 {loading ? (
                                                     <button type="submit" className="btn btn-warning btn-lg fw-semibold" disabled>Loading! Please Wait....</button>
                                                 ):(
                                                     <button type="submit" className="btn btn-warning btn-lg fw-semibold">Create Account</button>
                                                 )}
-                                                {msg && <p className='text-danger'>{msg}</p>}
+                                            {msg && <p className='text-danger'>{msg}</p>}
+                                        </div>
+
+                                        {/* STAFF MSG */}
+                                        <div className="staff-access-card">
+                                            <br/>
+
+                                    
+                                            <h5>Interested in joining our team?</h5>
+
+                                            <p>
+                                                Staff access is managed directly by the organization owner.
+                                                Contact the owner if you'd like to become a staff member.
+                                            </p>
+
+                                            <div className="staff-access-footer">
+                                                🔐 <span>Staff access requires owner approval</span>
                                             </div>
+                                
+
+                                        </div>
+
+
 
                                             <hr className="my-4" />
 

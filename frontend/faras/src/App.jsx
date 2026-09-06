@@ -31,6 +31,7 @@ import EditAddress from './components/EditAddress';
 import Categories from './components/dashboard/Categories';
 import Cat_AddCat from './components/dashboard/Cat_AddCat';
 import Cat_edit from './components/dashboard/Cat_edit';
+import DemoNotice from './components/DemoNotice';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -40,6 +41,8 @@ function App() {
       <Router>
         <ScrollToTop />
         
+        <DemoNotice/>
+
         <Routes>
           <Route
             path="/"

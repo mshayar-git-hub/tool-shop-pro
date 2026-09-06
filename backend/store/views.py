@@ -2,6 +2,7 @@ from django.db.models import Q
 from django.shortcuts import get_object_or_404, render
 from rest_framework.response import Response
 from rest_framework import generics, status
+from .permissions import IsStaff,IsCustomer,IsAdmin
 from user.models import Address, UserProfile
 from .serializers import AddressSerializer, CartItemSerializer, CartSerializer, CategorySerializer, OrderItemSerializer, OrderSerializer, ProductSerializer, UserProfileSerializer
 from .models import Cart, CartItem, Category, Order, OrderItem, Product
@@ -147,7 +148,7 @@ class get_cart_generic(generics.RetrieveAPIView):
         return cart
 
 class add_to_cart(generics.UpdateAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated,IsCustomer,IsStaff]
     serializer_class =  CartSerializer
 
     def post(self, request):
@@ -191,7 +192,7 @@ class add_to_cart(generics.UpdateAPIView):
         )
     
 class UpdateInCart(generics.GenericAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated,IsCustomer,IsStaff]
     serializer_class= CartSerializer
 
     def post(self,request):
@@ -216,7 +217,7 @@ class UpdateInCart(generics.GenericAPIView):
     
 
 class RemoveFromCart(generics.GenericAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated,IsCustomer,IsStaff]
     serializer_class = CartSerializer
 
     def post(self, request):
@@ -269,7 +270,7 @@ class RemoveFromCart(generics.GenericAPIView):
         )
     
 class Create_order(APIView):
-    permission_classes  = [IsAuthenticated]
+    permission_classes  = [IsAuthenticated,IsCustomer,IsStaff]
     def post(self,request):
         try:
             data = request.data 
@@ -312,7 +313,7 @@ class Create_order(APIView):
             return Response({'error':str(e)},status=status.HTTP_400_BAD_REQUEST)
         
 class Show_order(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated,IsStaff]
     def get(self,request):
         query = request.GET.get("q")
 
@@ -402,6 +403,11 @@ class User_view(APIView):
 
         if serializer.is_valid():
             serializer.save()
+            phone_number = request.data.get("phone_number")
+            if phone_number is not None:
+                profile,created = UserProfile.objects.get_or_create(user=request.user)
+                profile.phone_number = phone_number
+                profile.save()
             return Response(serializer.data)    
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
@@ -422,8 +428,9 @@ class Single_User_view(APIView):
 
             phone_number = request.data.get("phone_number")
             if phone_number is not None:
-                user.profile.phone_number = phone_number
-                user.profile.save()
+                profile,created = UserProfile.objects.get_or_create(user=user)
+                profile.phone_number = phone_number
+                profile.save()
             return Response(serializer.data)    
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
@@ -434,6 +441,7 @@ class Single_User_view(APIView):
 
     
 class All_User(APIView):
+    permission_classes=[IsAuthenticated,IsStaff]
     def get(self, request):
         query = request.GET.get("q")
         user = User.objects.all()

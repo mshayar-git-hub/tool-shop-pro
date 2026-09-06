@@ -90,7 +90,8 @@ class RegisterSerializer(serializers.ModelSerializer):
         )
         UserProfile.objects.create(
             user=user,
-            phone_number = phone_number
+            phone_number = phone_number,
+            role = UserProfile.CUSTOMER 
         )
         return user
 
