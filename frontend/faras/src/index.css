@@ -327,11 +327,12 @@ button{
 
     transition:.4s;
 
-    background:rgba(255,255,255,.55);
+    /* background:rgba(255,255,255,.55); */
+    background: #fff;
 
-    backdrop-filter:blur(20px);
+    /* backdrop-filter:blur(20px); */
 
-    -webkit-backdrop-filter:blur(20px);
+    /* -webkit-backdrop-filter:blur(20px); */
 
     border-bottom:
 

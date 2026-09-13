@@ -75,23 +75,23 @@ const Navbar = () => {
 
                         <div className="nav-actions d-flex align-items-center gap-3">
                             <form onSubmit={searchProduct} className="me-3">
-    <div className="input-group" style={{ width: "140px" }}>
-        <input
-            type="text"
-            className="form-control rounded-start-pill"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search products..."
-        />
+                                <div className="input-group" style={{ width: "140px" }}>
+                                    <input
+                                        type="text"
+                                        className="form-control rounded-start-pill"
+                                        value={search}
+                                        onChange={(e) => setSearch(e.target.value)}
+                                        placeholder="Search products..."
+                                    />
 
-        <button
-            type="submit"
-            className="btn btn-warning rounded-end-pill px-3"
-        >
-            <i className="bi bi-search"></i>
-        </button>
-    </div>
-</form>
+                                    <button
+                                        type="submit"
+                                        className="btn btn-warning rounded-end-pill px-3"
+                                    >
+                                        <i className="bi bi-search"></i>
+                                    </button>
+                                </div>
+                            </form>
 
                             <button className="btn btn-link text-dark fs-5 p-0">
                                 <i className="bi bi-heart"></i>
