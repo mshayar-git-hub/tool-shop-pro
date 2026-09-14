@@ -151,7 +151,7 @@ STATIC_ROOT = BASE_DIR /'static'
 STATICFILES_DIRS = [
     'faras_main/static'
 ]
-
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 
 CORS_ALLOWED_ORIGINS = [
