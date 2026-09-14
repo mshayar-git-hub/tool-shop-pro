@@ -17,4 +17,5 @@ EXPOSE 8000
 # CMD ["gunicorn", "faras_main.wsgi:application", "--bind", "0.0.0.0:8000"]
 # CMD ["sh", "-c", "python manage.py migrate && gunicorn clickmart_main.wsgi:application --bind 0.0.0.0:8000 --workers 3 --timeout 180"]
 # CMD ["gunicorn", "clickmart_main.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "3" , "--timeout", "180"]
-CMD ["sh", "-c", "python manage.py migrate && if [ \"$CREATE_SUPERUSER\" = \"true\" ]; then python manage.py createsuperuser --no-input; fi && gunicorn faras_main.wsgi:application --bind 0.0.0.0:8000 --workers 3 --timeout 180"]
+# CMD ["sh", "-c", "python manage.py migrate && if [ \"$CREATE_SUPERUSER\" = \"true\" ]; then python manage.py createsuperuser --no-input; fi && gunicorn faras_main.wsgi:application --bind 0.0.0.0:8000 --workers 3 --timeout 180"]
+CMD ["sh", "-c", "python manage.py migrate && if [ \"$CREATE_SUPERUSER\" = \"true\" ]; then python manage.py createsuperuser --noinput --username \"$DJANGO_SUPERUSER_USERNAME\" --email \"$DJANGO_SUPERUSER_EMAIL\"; fi && gunicorn faras_main.wsgi:application --bind 0.0.0.0:8000 --workers 3 --timeout 180"]
