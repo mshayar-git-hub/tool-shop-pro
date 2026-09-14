@@ -113,7 +113,7 @@ const Products = () => {
 
                                             <td>
                                                 <img
-                                                    src={`http://127.0.0.1:8000${product.image}`}
+                                                    src={`${import.meta.env.VITE_SERVER_BASE_URL_ROOT}${product.image}`}
                                                     className="product-img_D"
                                                     alt={product.product_name}
                                                 />

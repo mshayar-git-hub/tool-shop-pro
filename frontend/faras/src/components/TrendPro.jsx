@@ -62,7 +62,7 @@ const TrendPro = () => {
                     </button>
 
                     <div className="product-image">
-                        <img src={`http://127.0.0.1:8000${product.image}`}
+                        <img src={`${import.meta.env.VITE_SERVER_BASE_URL_ROOT}${product.image}`}
                              className="img-fluid"
                              alt={product.product_name} />
                     </div>

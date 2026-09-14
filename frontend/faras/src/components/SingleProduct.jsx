@@ -55,7 +55,7 @@ const SingleProduct = () => {
                                 <div className="main-image">
                                     <img
                                         id="mainProductImage"
-                                        src={`http://127.0.0.1:8000${singleProduct.image}`}
+                                        src={`${import.meta.env.VITE_SERVER_BASE_URL_ROOT}${singleProduct.image}`}
                                         className="img-fluid"
                                         alt={singleProduct.product_name} />
                                     <span className="zoom-badge">

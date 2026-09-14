@@ -9,7 +9,7 @@ export const refreshAccessToken = async () => {
 
     try {
         const res = await axios.post(
-            "http://127.0.0.1:8000/api/token/refresh/",
+            import.meta.env.VITE_TOKEN_REFRESH_URL,
             {
                 refresh: refresh,
             }
