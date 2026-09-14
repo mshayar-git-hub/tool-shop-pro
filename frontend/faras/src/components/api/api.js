@@ -45,12 +45,9 @@ Why use this file?
 import axios from "axios";
 import { refreshAccessToken } from "./RefreshToken";
 
-const baseURL = import.meta.env.VITE_SERVER_BASE_URL;
-console.log("🔥 API BASE URL:", baseURL);
-
 const api = axios.create({
     baseURL: import.meta.env.VITE_SERVER_BASE_URL ,
-});
+}); 
 
 // Request interceptor
 api.interceptors.request.use(async (config) => {
