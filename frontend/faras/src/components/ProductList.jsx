@@ -85,7 +85,7 @@ console.log("image: ",product[0])
                     {/* <!-- Product 1 --> */}
                     {
                         product.map((product) => (
-                                <div className="col-xl-4 col-md-6" key={product.id}>
+                                <div className="col-4 product-grid-item" key={product.id}>
                                     <div className="product-card">
                                         {/* <span className="sale-badge">-20%</span> */}
 
