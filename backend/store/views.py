@@ -99,7 +99,7 @@ class Product_generic(APIView):
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_200_OK)
             else:
-                print(serializer.errors)
+                print("PRODUCT SERIALIZER ERROR-------->",serializer.errors)
                 return Response({'message':"invalid data"},status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             print(serializer.errors)

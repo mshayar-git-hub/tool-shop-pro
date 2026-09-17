@@ -109,7 +109,7 @@ const Products = () => {
                                     {product.map((product)=>(
                                     <tr>
 
-                                        <td>{product.id} </td>
+                                            <td>{product.id} </td>
 
                                             <td>
                                                 <img

@@ -60,8 +60,8 @@ const Pro_AddPro = () => {
         data.append("product_name", formData.product_name);
         data.append("description", formData.description);
         data.append("price", formData.price);
-        data.append("trending", formData.trending);
-        data.append("in_stock", formData.in_stock);
+        data.append("trending", formData.trending ? "1" : "0");
+        data.append("in_stock", formData.in_stock ? "1" : "0");
 
         if (formData.image) {
             data.append("image", formData.image);
@@ -71,7 +71,7 @@ const Pro_AddPro = () => {
             alert("product changed successfully!");
             navigate("/dashboard/products")
         } else {
-            postProduct(formData);
+            postProduct(data);
             alert("product added successfully!");
             navigate("/dashboard/products")
         }
